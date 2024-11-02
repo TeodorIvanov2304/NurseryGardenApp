@@ -28,6 +28,6 @@ namespace NurseryGardenApp.Data.Models
 		[Required]
 		[ForeignKey(nameof(ClientId))]
 		public ApplicationUser Client { get; set; } = null!;
-		public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+		public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
 	}
 }

@@ -51,5 +51,7 @@ namespace NurseryGardenApp.Data.Models
 
 		[ForeignKey(nameof(DiscountId))]
 		public Discount? Discount { get; set; }
+
+		public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
 	}
 }

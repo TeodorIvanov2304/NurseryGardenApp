@@ -4,26 +4,24 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NurseryGardenApp.Data.Models
 {
-	[PrimaryKey(nameof(OrderId),nameof(ClientId))]
+	[PrimaryKey(nameof(OrderId), nameof(ProductId))]
 	public class OrderProduct
 	{
 		[Required]
 		[Comment("Order identifier")]
 		public Guid OrderId { get; set; }
 
-		[Required]
 		[ForeignKey(nameof(OrderId))]
 		public Order Order { get; set; } = null!;
 
 		[Required]
-		[Comment("Client identifier")]
-		public string ClientId { get; set; } = null!;
+		[Comment("Product identifier")]
+		public int ProductId { get; set; }
 
-		[Required]
-		[ForeignKey(nameof(ClientId))]
-		public ApplicationUser Client { get; set; } = null!;
+		[ForeignKey(nameof(ProductId))]
+		public Product Product { get; set; } = null!;
 
-		[Required]
-        public bool IsDeleted { get; set; }
-    }
+		[Comment("Is deleted flag")]
+		public bool IsDeleted { get; set; }
+	}
 }
