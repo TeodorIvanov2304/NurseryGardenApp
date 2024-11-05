@@ -11,6 +11,7 @@ namespace NurseryGardenApp.Data.Data.Configuration
 			builder.HasData(this.SeedCategories());
 		}
 
+		//Възможна грешка? Трябва ли да се сложи ClassId, и въобще така ли трябва да е връзката?
 		private  IEnumerable<Category> SeedCategories()
 		{
 			IEnumerable<Category> categories = new List<Category>
