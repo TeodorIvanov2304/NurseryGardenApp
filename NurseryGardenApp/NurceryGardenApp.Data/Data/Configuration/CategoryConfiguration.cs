@@ -19,22 +19,26 @@ namespace NurseryGardenApp.Data.Data.Configuration
 				new Category
 				{
 					Id = 1,
-					Name = "Trees"
+					Name = "Trees",
+					ClassId = 1
 				},
 				new Category
 				{
 					Id = 2,
-					Name = "Bushes"
+					Name = "Bushes",
+					ClassId = 2
 				},
 				new Category
 				{
 					Id = 3,
-					Name = "Flowers"
+					Name = "Flowers",
+					ClassId = 4
 				},
 				new Category
 				{
 					Id = 4,
-					Name = "Seedlings"
+					Name = "Seedlings",
+					ClassId = 6
 				},
 				new Category
 				{
