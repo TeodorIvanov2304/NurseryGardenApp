@@ -20,7 +20,7 @@ namespace NurseryGardenApp.Data.Models
 
 		[Required]
 		[Comment("Product description")]
-		[MaxLength(ProductNameMaxLength)]
+		[MaxLength(ProductDescriptionMaxLength)]
 		public string Description { get; set; } = null!;
 
 		[Required]
