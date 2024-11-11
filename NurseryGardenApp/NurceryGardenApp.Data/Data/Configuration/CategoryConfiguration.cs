@@ -50,6 +50,12 @@ namespace NurseryGardenApp.Data.Data.Configuration
 				{
 					Id = 6,
 					Name = "Evergreens"
+				},
+				new Category
+				{
+					Id = 7,
+					Name = "Trees",
+					ClassId = 2
 				}
 			};
 
