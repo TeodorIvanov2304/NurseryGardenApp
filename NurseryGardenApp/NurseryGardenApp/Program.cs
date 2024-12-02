@@ -4,8 +4,6 @@ using NurseryGardenApp.Data;
 using NurseryGardenApp.Data.Data.Repositories;
 using NurseryGardenApp.Data.Data.Repositories.Interfaces;
 using NurseryGardenApp.Data.Models;
-using System.Net;
-using System.Security.Cryptography;
 
 var builder = WebApplication.CreateBuilder(args);
 

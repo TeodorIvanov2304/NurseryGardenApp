@@ -107,7 +107,7 @@ namespace NurseryGardenApp.Data.Data.Repositories
 
 		public async Task<IEnumerable<TType>> GetAllAsync()
 		{
-			return await this._dbSet.ToArrayAsync();
+			return await this._dbSet.ToListAsync();
 		}
 
 		public IQueryable<TType> GetAllAttached()

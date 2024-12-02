@@ -7,11 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.3.0" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\NurceryGardenApp.Data\NurseryGardenApp.Data.csproj" />
     <ProjectReference Include="..\NurseryGardenApp.Common\NurseryGardenApp.Common.csproj" />
+    <ProjectReference Include="..\NurseryGaredenApp.ViewModels\NurseryGardenApp.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

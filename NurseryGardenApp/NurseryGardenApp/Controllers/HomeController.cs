@@ -1,7 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using NurseryGardenApp.Data.Models;
 using NurseryGardenApp.Models;
 using System.Diagnostics;
 
