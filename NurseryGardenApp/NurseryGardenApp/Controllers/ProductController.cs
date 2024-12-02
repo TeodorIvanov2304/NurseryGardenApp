@@ -1,12 +1,22 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NurseryGardenApp.Services.Data.Interfaces;
 using NurseryGardenApp.ViewModels.Product;
 
 namespace NurseryGardenApp.Controllers
 {
 	public class ProductController : BaseController
 	{
-		public async Task<IActionResult> Index()
+		private readonly ICategoryService _categoryService;
+		private readonly IDiscountService _discountService;
+
+        public ProductController(ICategoryService categoryService, IDiscountService discountService)
+        {
+            this._categoryService = categoryService;
+			this._discountService = discountService;
+        }
+
+        public async Task<IActionResult> Index()
 		{
 			return View();
 		}
@@ -28,7 +38,7 @@ namespace NurseryGardenApp.Controllers
 				return View(viewModel);
 			}
 
-
+			var categories =  await this._categoryService.GetAllCategoriesAsync();
 		}
 	}
 }

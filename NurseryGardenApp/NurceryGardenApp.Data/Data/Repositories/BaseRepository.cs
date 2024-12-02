@@ -102,7 +102,7 @@ namespace NurseryGardenApp.Data.Data.Repositories
 
 		public IEnumerable<TType> GetAll()
 		{
-			return this._dbSet.ToArray();
+			return this._dbSet.ToList();
 		}
 
 		public async Task<IEnumerable<TType>> GetAllAsync()

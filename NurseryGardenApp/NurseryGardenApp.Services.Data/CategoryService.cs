@@ -11,7 +11,7 @@ namespace NurseryGardenApp.Services.Data
 
         public CategoryService(IRepository<Category, int> repository)
         {
-			_repository = repository;
+			this._repository = repository;
             
         }
 
