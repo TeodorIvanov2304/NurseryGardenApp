@@ -1,7 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NurseryGardenApp.Data;
+using NurseryGardenApp.Data.Data.Repositories;
+using NurseryGardenApp.Data.Data.Repositories.Interfaces;
 using NurseryGardenApp.Data.Models;
+using System.Net;
+using System.Security.Cryptography;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +31,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 .AddRoles<IdentityRole>()  // Add role management
 .AddEntityFrameworkStores<NurseryGardenDbContext>();  // Link DbContext to Identity
 
+builder.Services.AddScoped(typeof(IRepository<,>), typeof(BaseRepository<,>));
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
