@@ -21,6 +21,7 @@ namespace NurseryGardenApp.Data
 		public virtual DbSet<Product> Products { get; set; }
 
 
+
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
 

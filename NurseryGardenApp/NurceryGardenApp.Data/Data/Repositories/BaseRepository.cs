@@ -10,10 +10,10 @@ namespace NurseryGardenApp.Data.Data.Repositories
 		private readonly NurseryGardenDbContext _dbContext;
 		private readonly DbSet<TType> _dbSet;
 
-		public BaseRepository(NurseryGardenDbContext dbContext, DbSet<TType> dbSet)
+		public BaseRepository(NurseryGardenDbContext dbContext)
 		{
 			this._dbContext = dbContext;
-			this._dbSet = dbSet;
+			this._dbSet = dbContext.Set<TType>(); 
 		}
 
 		public void Add(TType item)

@@ -4,6 +4,9 @@ using NurseryGardenApp.Data;
 using NurseryGardenApp.Data.Data.Repositories;
 using NurseryGardenApp.Data.Data.Repositories.Interfaces;
 using NurseryGardenApp.Data.Models;
+using NurseryGardenApp.Services.Data.Interfaces;
+using NurseryGardenApp.Services.Data;
+using NurseryGardenApp.Data.Data.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +32,14 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 .AddRoles<IdentityRole>()  // Add role management
 .AddEntityFrameworkStores<NurseryGardenDbContext>();  // Link DbContext to Identity
 
+//Register repository
 builder.Services.AddScoped(typeof(IRepository<,>), typeof(BaseRepository<,>));
+
+//Register services
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IDiscountService, DiscountService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

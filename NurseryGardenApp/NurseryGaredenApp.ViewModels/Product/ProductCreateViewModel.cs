@@ -17,7 +17,7 @@ namespace NurseryGardenApp.ViewModels.Product
 		public string Description { get; set; } = null!;
 
 		[Required]
-		[Range(0.01, 10000, ErrorMessage = "The price must be between 0.01 and 10,000.")]
+		[Range((double)ProductPriceMinValue, (double)ProductPriceMaxValue, ErrorMessage = "The price must be between 0.01 and 10,000.")]
 		public decimal Price { get; set; }
 
 		[Required]

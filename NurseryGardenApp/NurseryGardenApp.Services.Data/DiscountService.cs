@@ -13,9 +13,9 @@ namespace NurseryGardenApp.Services.Data
 	{	
 		private readonly IRepository<Discount, int> _discountRepository;
 
-        public DiscountService(IRepository<Discount, int> discountRepositor)
+        public DiscountService(IRepository<Discount, int> discountRepository)
         {
-            this._discountRepository = discountRepositor;
+            this._discountRepository = discountRepository;
         }
 
         public async Task<IEnumerable<Discount>> GetAllDiscountsAsync()

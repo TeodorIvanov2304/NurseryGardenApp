@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NurceryGardenApp.Data\NurseryGardenApp.Data.csproj" />
+    <ProjectReference Include="..\NurseryGardenApp.Services.Data\NurseryGardenApp.Services.Data.csproj" />
     <ProjectReference Include="..\NurseryGaredenApp.ViewModels\NurseryGardenApp.ViewModels.csproj" />
   </ItemGroup>
 

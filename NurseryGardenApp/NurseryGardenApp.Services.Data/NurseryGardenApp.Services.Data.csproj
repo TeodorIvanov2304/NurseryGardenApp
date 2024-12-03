@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\NurceryGardenApp.Data\NurseryGardenApp.Data.csproj" />
     <ProjectReference Include="..\NurseryGardenApp.Common\NurseryGardenApp.Common.csproj" />
     <ProjectReference Include="..\NurseryGaredenApp.ViewModels\NurseryGardenApp.ViewModels.csproj" />
