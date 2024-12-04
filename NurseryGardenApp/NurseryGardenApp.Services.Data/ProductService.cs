@@ -79,6 +79,7 @@ namespace NurseryGardenApp.Services.Data
 
 		public async Task<EditProductViewModel?> GetProductForEditByIdAsync(Guid id)
 		{
+
 			Product? product = await this._productRepository
 										 .GetAllAttached()
 										 .FirstOrDefaultAsync(p => p.Id == id);

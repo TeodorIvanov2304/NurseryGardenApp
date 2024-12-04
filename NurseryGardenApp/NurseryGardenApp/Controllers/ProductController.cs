@@ -77,7 +77,6 @@ namespace NurseryGardenApp.Controllers
 
 		[HttpGet]
 		[Authorize]
-		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Edit(string? id)
 		{
 			Guid productGuid = Guid.Empty;
@@ -85,17 +84,30 @@ namespace NurseryGardenApp.Controllers
 
 			if (isValid == false)
 			{
-				return this.RedirectToAction(nameof(Index));
+				return this.RedirectToAction("Custom404","Error",new { message = "Invalid Product Id"});
 			}
 
 			var productForEdit = await this._productService.GetProductForEditByIdAsync(productGuid);
 
 			if (productForEdit == null)
 			{
-				return this.RedirectToAction(nameof(Index));
+				return RedirectToAction("Custom404", "Error", new { message = "Product not found." });
 			}
 
 			return View(productForEdit);
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		[Authorize]
+		public async Task<IActionResult> Edit(string id, EditProductViewModel viewModel)
+		{
+			if (ModelState.IsValid == false)
+			{
+				return this.View(viewModel);
+			}
+
+			bool result = await this._productService.EditProductAsync(viewModel);
 		}
 	}
 }

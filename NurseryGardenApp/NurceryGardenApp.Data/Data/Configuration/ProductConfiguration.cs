@@ -8,12 +8,6 @@ namespace NurseryGardenApp.Data.Data.Configuration
 	{
 		public void Configure(EntityTypeBuilder<Product> builder)
 		{
-			//Price precision
-
-			//builder.Entity<Product>()
-		 //  .Property(p => p.Price)
-		 //  .HasColumnType("decimal")
-		 //  .HasPrecision(18, 2);
 
 			builder.Property(p => p.Price)
 				   .HasColumnType("decimal")
