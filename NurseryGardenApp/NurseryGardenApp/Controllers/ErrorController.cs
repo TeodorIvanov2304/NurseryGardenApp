@@ -10,5 +10,12 @@ namespace NurseryGardenApp.Controllers
 			ViewData["ErrorMessage"] = message;
 			return View();
 		}
+
+		[Route("Error/Custom500")]
+		public IActionResult Custom500(string message)
+		{
+			ViewData["ErrorMessage"] = message;
+			return View();
+		}
 	}
 }

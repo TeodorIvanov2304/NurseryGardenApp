@@ -56,6 +56,12 @@ else
 	app.UseHsts();
 }
 
+//Configure middleware for status codes 400
+app.UseStatusCodePagesWithReExecute("/Error/Custom404");
+
+//Configure middleware for server errors
+app.UseExceptionHandler("/Error/Custom500");
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
