@@ -46,7 +46,10 @@
 		<div class="form-group">
 			<label asp-for="CategoryId" class="form-label">Category</label>
 			<select asp-for="CategoryId" class="form-control" asp-items="Model.Categories">
-				<option value="">-- Select a Category --</option>
+				@if (!Model.Categories.Any(c => c.Selected))
+				{
+					<option value="">-- Select a Category --</option>
+				}
 			</select>
 			<span asp-validation-for="CategoryId" class="text-danger"></span>
 		</div>
@@ -54,7 +57,10 @@
 		<div class="form-group">
 			<label asp-for="DiscountId" class="form-label">Discount (optional)</label>
 			<select asp-for="DiscountId" class="form-control" asp-items="Model.Discounts">
-				<option value="">-- Select a Discount --</option>
+				@if(!Model.Discounts.Any(discount => discount.Selected))
+				{
+					<option value="">-- Select a Discount --</option>
+				}
 			</select>
 			<span asp-validation-for="DiscountId" class="text-danger"></span>
 		</div>

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using NurseryGardenApp.Data.Data.Models;
 using NurseryGardenApp.Data.Data.Repositories.Interfaces;
 using NurseryGardenApp.Data.Models;
@@ -115,6 +116,9 @@ namespace NurseryGardenApp.Services.Data
 				return null; 
 			}
 
+			IEnumerable<Category> categories = await this._categoriesRepository.GetAllAsync();
+			IEnumerable<Discount> discounts = await this._discountRepository.GetAllAsync();
+
 			EditProductViewModel modelForEdit = new EditProductViewModel
 			{
 				Id = product.Id.ToString(),
@@ -123,8 +127,18 @@ namespace NurseryGardenApp.Services.Data
 				Price = product.Price,
 				ImageUrl = product.ImageUrl,
 				Quantity = product.Quantity,
-				CategoryId = product.CategoryId,
-				DiscountId = product.DiscountId
+				Categories = categories.Select(c => new SelectListItem
+				{
+					Value = c.Id.ToString(),
+					Text = c.Name,
+					Selected = c.Id == product.CategoryId
+				}),
+				Discounts = discounts.Select(d => new SelectListItem
+				{
+					Value = d.Id.ToString(),
+					Text = d.Name,
+					Selected = d.Id == product.DiscountId
+				})
 			};
 
 			return modelForEdit;
