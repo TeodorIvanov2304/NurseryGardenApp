@@ -25,4 +25,8 @@
     <ProjectReference Include="..\NurseryGardenApp.Data.Models\NurseryGardenApp.Data.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
+  </ItemGroup>
+
 </Project>

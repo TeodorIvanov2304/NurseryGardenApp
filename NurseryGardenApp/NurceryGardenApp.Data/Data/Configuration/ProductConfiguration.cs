@@ -29,7 +29,7 @@ namespace NurseryGardenApp.Data.Data.Configuration
 			{
 				new Product
 				{
-					Id = 1,
+					Id = Guid.NewGuid(),
 					Name = "Dracaena marginata",
 					Description = "Dracaena marginata, also known as the Madagascar Dragon Tree, is a popular and striking plant that's native to Madagascar, Mauritius, and other islands in the Indian Ocean. This plant belongs to the Asparagaceae family and features long, thin, and pointed leaves that are often edged in red or pink.",
 					Price = 20.00m,
@@ -39,7 +39,7 @@ namespace NurseryGardenApp.Data.Data.Configuration
 				},
 				new Product
 				{
-					Id = 2,
+					Id = Guid.NewGuid(),
 					Name = "Hoya",
 					Description = "Native to Southeast Asia, the Hoya Kerrii Variegata is a succulent-like vine that grows slowly but can eventually produce long tendrils with clusters of star-shaped, fragrant flowers under optimal conditions.",
 					Price = 5.00m,
@@ -49,7 +49,7 @@ namespace NurseryGardenApp.Data.Data.Configuration
 				},
 				new Product
 				{
-					Id = 3,
+					Id = Guid.NewGuid(),
 					Name = "Periwinkle",
 					Description = "Periwinkle (Vinca minor) is an excellent evergreen groundcover with dark green foliage. Oblong to ovate leaves are opposite, simple, ½ to 2 inches long, glossy, with a short petiole. They exude a milky juice when broken. Flowers are purple, blue or white depending on the cultivar.",
 					Price = 2.00m,
@@ -59,7 +59,7 @@ namespace NurseryGardenApp.Data.Data.Configuration
 				},
 				new Product
 				{
-					Id = 4,
+					Id = Guid.NewGuid(),
 					Name = "English oak",
 					Description = "A large, deciduous tree growing up to 20–40m tall. Also known as common oak, this species grows and matures to form a broad and spreading crown with sturdy branches beneath. Look out for: its distinctive round-lobed leaves with short leaf stalks (petioles). Identified in winter by: rounded buds in clusters.",
 					Price = 25.00m,
@@ -69,7 +69,7 @@ namespace NurseryGardenApp.Data.Data.Configuration
 				},
 				new Product
 				{
-					Id = 5,
+					Id = Guid.NewGuid(),
 					Name = "Oriental Plane",
 					Description = "Platanus orientalis, commonly called oriental plane tree or oriental sycamore, is a deciduous, usually single-trunk tree with distinctive, flaky, brown-gray-cream bark, large maple-like leaves and spherical fruiting balls that persist into winter.",
 					Price = 25.00m,
@@ -80,7 +80,7 @@ namespace NurseryGardenApp.Data.Data.Configuration
 				},
 				new Product
 				{
-					Id = 6,
+					Id = Guid.NewGuid(),
 					Name = "Arborvitae",
 					Description = "Thuja occidentalis, also known as northern white-cedar, eastern white-cedar, or arborvitae, is an evergreen coniferous tree, in the cypress family Cupressaceae, which is native to eastern Canada and much of the north-central and northeastern United States. It is widely cultivated as an ornamental plant.",
 					Price = 5.00m,

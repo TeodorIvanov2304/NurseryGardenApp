@@ -62,7 +62,8 @@ namespace NurseryGardenApp.Services.Data
 				.GetAllAttached()
 				.Where(p => p.IsDeleted == false)
 				.Select(p => new AllProductsIndexViewModel
-				{
+				{	
+					Id = p.Id.ToString(),
 					ProductName = p.Name,
 					Description = p.Description,
 					Price = p.Price,
@@ -70,9 +71,36 @@ namespace NurseryGardenApp.Services.Data
 					CategoryName = p.Category.Name,
 					DiscountName = p.Discount.Name ?? string.Empty
 				})
+				.AsNoTracking()
 				.ToListAsync();
 
 			return allProducts;
+		}
+
+		public async Task<EditProductViewModel?> GetProductForEditByIdAsync(Guid id)
+		{
+			Product? product = await this._productRepository
+										 .GetAllAttached()
+										 .FirstOrDefaultAsync(p => p.Id == id);
+
+			if (product == null)
+			{
+				return null; 
+			}
+
+			EditProductViewModel modelForEdit = new EditProductViewModel
+			{
+				Id = product.Id.ToString(),
+				Name = product.Name,
+				Description = product.Description,
+				Price = product.Price,
+				ImageUrl = product.ImageUrl,
+				Quantity = product.Quantity,
+				CategoryId = product.CategoryId,
+				DiscountId = product.DiscountId
+			};
+
+			return modelForEdit;
 		}
 	}
 }

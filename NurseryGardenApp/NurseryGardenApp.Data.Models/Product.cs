@@ -11,7 +11,7 @@ namespace NurseryGardenApp.Data.Models
 		[Key]
 		[Required]
 		[Comment("Product identifier")]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
 		[Required]
 		[Comment("Product name")]

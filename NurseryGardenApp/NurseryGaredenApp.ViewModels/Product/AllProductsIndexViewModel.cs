@@ -2,6 +2,7 @@
 {
 	public class AllProductsIndexViewModel
 	{
+        public string Id { get; set; } = null!;
 		public string ProductName { get; set; } = null!;
 		public string Description { get; set; } = null!;
 		public decimal Price { get; set; }

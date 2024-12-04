@@ -10,15 +10,15 @@ namespace NurseryGardenApp.Controllers
 		private readonly ICategoryService _categoryService;
 		private readonly IDiscountService _discountService;
 		private readonly IProductService _productService;
-        public ProductController(ICategoryService categoryService, IDiscountService discountService, IProductService productService)
-        {
-            this._categoryService = categoryService;
+		public ProductController(ICategoryService categoryService, IDiscountService discountService, IProductService productService)
+		{
+			this._categoryService = categoryService;
 			this._discountService = discountService;
 			this._productService = productService;
-        }
+		}
 
 		[HttpGet]
-        public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index()
 		{
 			IEnumerable<AllProductsIndexViewModel> models = await this._productService.GetAllProductsAsync();
 
@@ -54,12 +54,12 @@ namespace NurseryGardenApp.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create(ProductCreateViewModel viewModel)
 		{
-			if (ModelState.IsValid == false) 
+			if (ModelState.IsValid == false)
 			{
 				return View(viewModel);
 			}
 
-			var categories =  await this._categoryService.GetAllCategoriesAsync();
+			var categories = await this._categoryService.GetAllCategoriesAsync();
 			var discounts = await this._discountService.GetAllDiscountsAsync();
 
 			bool result = await this._productService.AddProductAsync(viewModel);
@@ -73,6 +73,29 @@ namespace NurseryGardenApp.Controllers
 			}
 
 			return RedirectToAction(nameof(Index));
+		}
+
+		[HttpGet]
+		[Authorize]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Edit(string? id)
+		{
+			Guid productGuid = Guid.Empty;
+			bool isValid = this.IsGuidValid(id, ref productGuid);
+
+			if (isValid == false)
+			{
+				return this.RedirectToAction(nameof(Index));
+			}
+
+			var productForEdit = await this._productService.GetProductForEditByIdAsync(productGuid);
+
+			if (productForEdit == null)
+			{
+				return this.RedirectToAction(nameof(Index));
+			}
+
+			return View(productForEdit);
 		}
 	}
 }

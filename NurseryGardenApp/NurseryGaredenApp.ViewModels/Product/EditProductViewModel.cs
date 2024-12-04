@@ -3,17 +3,19 @@ using System.ComponentModel.DataAnnotations;
 using static NurseryGardenApp.Common.EntityValidationConstants;
 namespace NurseryGardenApp.ViewModels.Product
 {
-	public class ProductCreateViewModel
+	public class EditProductViewModel
 	{
 		[Required]
-		[MinLength(ProductNameMinLength, ErrorMessage ="The name must be at least 2 characters")]
-		[MaxLength(ProductNameMaxLength, ErrorMessage = "The name must be less than 100 characters.")]
+		public string Id { get; set; } = null!;
 
+		[Required]
+		[MinLength(ProductNameMinLength, ErrorMessage = "The name must be at least 2 characters")]
+		[MaxLength(ProductNameMaxLength, ErrorMessage = "The name must be less than 100 characters.")]
 		public string Name { get; set; } = null!;
 
 		[Required]
-		[MinLength(ProductDescriptionMinLength,ErrorMessage = "The description must be at least 20 characters")]
-		[MaxLength(ProductDescriptionMaxLength,ErrorMessage = "The description must be less than 500 characters.")]
+		[MinLength(ProductDescriptionMinLength, ErrorMessage = "The description must be at least 20 characters")]
+		[MaxLength(ProductDescriptionMaxLength, ErrorMessage = "The description must be less than 500 characters.")]
 		public string Description { get; set; } = null!;
 
 		[Required]
@@ -21,7 +23,7 @@ namespace NurseryGardenApp.ViewModels.Product
 		public decimal Price { get; set; }
 
 		[Required]
-		[MaxLength(ProductUrlMaxLength,ErrorMessage = "The URL must be less than 500 characters.")]
+		[MaxLength(ProductUrlMaxLength, ErrorMessage = "The URL must be less than 500 characters.")]
 		[Url(ErrorMessage = "Please enter a valid URL.")]
 		public string ImageUrl { get; set; } = null!;
 
@@ -31,10 +33,9 @@ namespace NurseryGardenApp.ViewModels.Product
 
 		[Required]
 		public int CategoryId { get; set; }
-
 		public int? DiscountId { get; set; }
-
 		public IEnumerable<SelectListItem> Categories { get; set; } = new List<SelectListItem>();
 		public IEnumerable<SelectListItem> Discounts { get; set; } = new List<SelectListItem>();
-	}
+	
+}
 }

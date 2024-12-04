@@ -16,7 +16,7 @@ namespace NurseryGardenApp.Data.Models
 
 		[Required]
 		[Comment("Product identifier")]
-		public int ProductId { get; set; }
+		public Guid ProductId { get; set; }
 
 		[ForeignKey(nameof(ProductId))]
 		public Product Product { get; set; } = null!;
