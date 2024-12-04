@@ -107,7 +107,25 @@ namespace NurseryGardenApp.Controllers
 				return this.View(viewModel);
 			}
 
+			Guid productGuid = Guid.Empty;
+			bool isValid = this.IsGuidValid(id, ref productGuid);
+
+			if (isValid == false)
+			{
+				return this.RedirectToAction("Custom404", "Error", new { message = "Invalid Product Id" });
+			}
+
 			bool result = await this._productService.EditProductAsync(viewModel);
+
+			if (result == false)
+			{
+				{
+					return this.RedirectToAction("Custom500", "Error", new { message = "Failed to update the product." });
+				}
+			}
+
+			return RedirectToAction(nameof(Index));
+
 		}
 	}
 }

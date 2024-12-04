@@ -56,6 +56,32 @@ namespace NurseryGardenApp.Services.Data
 			return true;
 		}
 
+		public async Task<bool> EditProductAsync(EditProductViewModel viewModel)
+		{
+			Product? productToEdit = await this._productRepository
+										  .GetAllAttached()
+										  .Where(d => d.IsDeleted == false)
+										  .FirstOrDefaultAsync(p => p.Id.ToString() == viewModel.Id);
+
+			if (productToEdit == null)
+			{
+				return false;
+			}
+
+			productToEdit.Name = viewModel.Name;
+			productToEdit.Description = viewModel.Description;
+			productToEdit.Price = viewModel.Price;
+			productToEdit.ImageUrl = viewModel.ImageUrl;
+			productToEdit.Quantity = viewModel.Quantity;
+			productToEdit.CategoryId = viewModel.CategoryId;
+			productToEdit.DiscountId = viewModel.DiscountId;
+
+			await this._productRepository.SaveChangesAsync();
+
+			return true;
+
+		}
+
 		public async Task<IEnumerable<AllProductsIndexViewModel>> GetAllProductsAsync()
 		{
 			var allProducts = await this._productRepository
