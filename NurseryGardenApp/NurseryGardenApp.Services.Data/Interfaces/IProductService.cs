@@ -8,5 +8,8 @@ namespace NurseryGardenApp.Services.Data.Interfaces
 		Task<IEnumerable<AllProductsIndexViewModel>> GetAllProductsAsync();
 		Task<EditProductViewModel?> GetProductForEditByIdAsync(Guid id);
 		Task<bool> EditProductAsync(EditProductViewModel viewModel);
+		Task<ProductDetailsViewModel?> GetProductDetailsByIdAsync(Guid id);
+		Task<DeleteProductViewModel?> GetProductToDeleteByIdAsync(Guid id);
+		Task<bool> DeleteProductAsync(Guid id);
 	}
 }

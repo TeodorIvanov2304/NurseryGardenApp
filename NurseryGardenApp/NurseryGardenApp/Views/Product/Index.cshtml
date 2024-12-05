@@ -12,8 +12,7 @@
 		<thead>
 			<tr>
 				<th>Image</th>
-				<th>Product Name</th>
-				<th>Description</th>
+				<th>Name</th>
 				<th>Price</th>
 				<th>Category</th>
 				<th>Discount</th>
@@ -29,13 +28,13 @@
 							<img src="@product.ImageURL" alt="@product.ProductName" class="img-thumbnail" style="max-width: 100px;" />
 						</td>
 						<td>@product.ProductName</td>
-						<td>@product.Description</td>
 						<td>@product.Price.ToString("C")</td>
 						<td>@product.CategoryName</td>
 						<td>@(string.IsNullOrEmpty(product.DiscountName) ? "No Discount" : product.DiscountName)</td>
 						<td>
 							<a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-warning btn-sm">Edit</a>
 							<a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger btn-sm">Delete</a>
+							<a asp-action="Details" asp-route-id="@product.Id" class="btn btn-secondary btn-sm">Details</a>
 						</td>
 					</tr>
 				}

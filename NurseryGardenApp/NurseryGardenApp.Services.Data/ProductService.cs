@@ -9,24 +9,24 @@ using NurseryGardenApp.ViewModels.Product;
 namespace NurseryGardenApp.Services.Data
 {
 	public class ProductService : IProductService
-	{	
-		private readonly IRepository<Product,Guid> _productRepository;
+	{
+		private readonly IRepository<Product, Guid> _productRepository;
 		private readonly IRepository<Category, int> _categoriesRepository;
 		private readonly IRepository<Discount, int> _discountRepository;
 
 		public ProductService(IRepository<Product, Guid> productRepository, IRepository<Category, int> categoriesRepository, IRepository<Discount, int> discountRepository)
-        {
-            this._productRepository = productRepository;
+		{
+			this._productRepository = productRepository;
 			this._categoriesRepository = categoriesRepository;
 			this._discountRepository = discountRepository;
-        }
-        public async Task<bool> AddProductAsync(ProductCreateViewModel viewModel)
+		}
+		public async Task<bool> AddProductAsync(ProductCreateViewModel viewModel)
 		{
 			Category? categoryExists = await _categoriesRepository.GetByIdAsync(viewModel.CategoryId);
 
 			if (categoryExists == null)
 			{
-				return false; 
+				return false;
 			}
 
 			if (viewModel.DiscountId.HasValue)
@@ -47,7 +47,7 @@ namespace NurseryGardenApp.Services.Data
 				Quantity = viewModel.Quantity,
 				CategoryId = viewModel.CategoryId,
 				DiscountId = viewModel.DiscountId,
-				IsDeleted = false 
+				IsDeleted = false
 			};
 
 
@@ -55,6 +55,27 @@ namespace NurseryGardenApp.Services.Data
 			await _productRepository.SaveChangesAsync();
 
 			return true;
+		}
+
+		public async Task<bool> DeleteProductAsync(Guid id)
+		{
+			try
+			{
+				var product = await this._productRepository.GetByIdAsync(id);
+
+				if (product == null || product.IsDeleted)
+				{
+					return false;
+				}
+
+				product.IsDeleted = true;
+				await this._productRepository.SaveChangesAsync();
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
 		}
 
 		public async Task<bool> EditProductAsync(EditProductViewModel viewModel)
@@ -89,19 +110,41 @@ namespace NurseryGardenApp.Services.Data
 				.GetAllAttached()
 				.Where(p => p.IsDeleted == false)
 				.Select(p => new AllProductsIndexViewModel
-				{	
+				{
 					Id = p.Id.ToString(),
 					ProductName = p.Name,
-					Description = p.Description,
 					Price = p.Price,
 					ImageURL = p.ImageUrl,
 					CategoryName = p.Category.Name,
-					DiscountName = p.Discount.Name ?? string.Empty
+					DiscountName = p.Discount != null ? p.Discount.Name : string.Empty
 				})
 				.AsNoTracking()
 				.ToListAsync();
 
 			return allProducts;
+		}
+
+		public Task<ProductDetailsViewModel?> GetProductDetailsByIdAsync(Guid id)
+		{
+			var modelDetailed = this._productRepository
+									.GetAllAttached()
+									.Where(m => m.IsDeleted == false)
+									.Where(m => m.Id == id)
+									.AsNoTracking()
+									.Select(m => new ProductDetailsViewModel
+									{
+										Id = m.Id.ToString(),
+										Description = m.Description,
+										ProductName = m.Name,
+										ImageURL = m.ImageUrl,
+										Price = m.Price,
+										CategoryName = m.Category.Name,
+										DiscountName = m.Discount != null ? m.Discount.Name : string.Empty
+									})
+									.FirstOrDefaultAsync();
+
+			return modelDetailed;
+
 		}
 
 		public async Task<EditProductViewModel?> GetProductForEditByIdAsync(Guid id)
@@ -113,7 +156,7 @@ namespace NurseryGardenApp.Services.Data
 
 			if (product == null)
 			{
-				return null; 
+				return null;
 			}
 
 			IEnumerable<Category> categories = await this._categoriesRepository.GetAllAsync();
@@ -142,6 +185,24 @@ namespace NurseryGardenApp.Services.Data
 			};
 
 			return modelForEdit;
+		}
+
+		public async Task<DeleteProductViewModel?> GetProductToDeleteByIdAsync(Guid id)
+		{
+			DeleteProductViewModel? modelToDelete = await this._productRepository.GetAllAttached()
+				  .Where(p => p.IsDeleted == false)
+				  .Select(p => new DeleteProductViewModel
+				  {
+					  Id = p.Id.ToString(),
+					  Name = p.Name,
+					  Description = p.Description,
+					  Price = p.Price,
+					  ImageUrl = p.ImageUrl,
+					  DiscountName = p.Discount != null ? p.Discount.Name : "No discount"
+				  })
+				  .FirstOrDefaultAsync(p => p.Id == id.ToString());
+
+			return modelToDelete;
 		}
 	}
 }

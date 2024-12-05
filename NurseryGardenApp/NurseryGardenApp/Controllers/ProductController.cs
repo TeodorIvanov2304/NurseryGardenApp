@@ -82,7 +82,7 @@ namespace NurseryGardenApp.Controllers
 			Guid productGuid = Guid.Empty;
 			bool isValid = this.IsGuidValid(id, ref productGuid);
 
-			if (isValid == false)
+			if (!isValid)
 			{
 				return this.RedirectToAction("Custom404","Error",new { message = "Invalid Product Id"});
 			}
@@ -111,7 +111,7 @@ namespace NurseryGardenApp.Controllers
 			Guid productGuid = Guid.Empty;
 			bool isValid = this.IsGuidValid(id, ref productGuid);
 
-			if (isValid == false)
+			if (!isValid)
 			{
 				return this.RedirectToAction("Custom404", "Error", new { message = "Invalid Product Id" });
 			}
@@ -127,6 +127,72 @@ namespace NurseryGardenApp.Controllers
 
 			return RedirectToAction(nameof(Index));
 
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Details(string? id)
+		{
+			Guid productGuid = Guid.Empty;
+			bool isValid = this.IsGuidValid(id, ref productGuid);
+
+			if (!isValid)
+			{
+				return this.RedirectToAction("Custom404", "Error", new { message = "Invalid Product Id" });
+			}
+
+			ProductDetailsViewModel? modelDetailed = await this._productService.GetProductDetailsByIdAsync(productGuid);
+
+			if (modelDetailed == null)
+			{
+				return RedirectToAction("Custom404", "Error", new { message = "Product not found." });
+			}
+
+			return View(modelDetailed);
+		}
+
+		[HttpGet]
+		[Authorize]
+		public async Task<IActionResult> Delete(string? id)
+		{
+			Guid productGuid = Guid.Empty;
+			bool isValid = this.IsGuidValid(id,ref productGuid);
+
+			if (!isValid) 
+			{
+				return this.RedirectToAction("Custom404", "Error", new { message = "Invalid Product" });
+			}
+
+			DeleteProductViewModel? modelToDelete = await this._productService.GetProductToDeleteByIdAsync(productGuid);
+
+			if(modelToDelete == null)
+			{
+				return this.RedirectToAction("Custom404", "Error", new { message = "Product not found" });
+			}
+
+			return this.View(modelToDelete);
+		}
+
+		[HttpPost]
+		[Authorize]
+		public async Task<IActionResult> DeleteConfirmed(DeleteProductViewModel model)
+		{
+			Guid productGuid = Guid.Empty;
+			bool isValid = this.IsGuidValid(model.Id, ref productGuid);
+
+			if (!isValid)
+			{
+				return this.RedirectToAction("Custom404", "Error", new { message = "Invalid Product" });
+			}
+
+			bool isDeleted = await this._productService.DeleteProductAsync(productGuid);
+
+			if (!isDeleted) 
+			{
+				ModelState.AddModelError("", "Unable to delete the product. Please try again later.");
+				return this.View(model);
+			}
+
+			return this.RedirectToAction(nameof(Index));
 		}
 	}
 }
