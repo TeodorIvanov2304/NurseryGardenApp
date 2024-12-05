@@ -37,6 +37,12 @@
 		public const decimal OrderPriceMaxValue = 10_000m;
 
 
+		//Manager
+		public const int ManagerWorkPhoneNumberMinValue = 3;
+		public const int ManagerWorkPhoneNumberMaxValue = 20;
+		public const int DepartmentNameMinValue = 2;
+		public const int DepartmentNameMaxValue = 50;
+
 		//Date format
 		public const string AllDateFormat = "yyyy-MM-dd H:mm";
 	}

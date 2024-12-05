@@ -19,6 +19,7 @@ namespace NurseryGardenApp.Data
 		public virtual DbSet<Order> Orders { get; set; }
 		public virtual DbSet<OrderProduct> OrdersProducts { get; set; }
 		public virtual DbSet<Product> Products { get; set; }
+		public virtual DbSet<Manager> Managers { get; set; }
 
 
 

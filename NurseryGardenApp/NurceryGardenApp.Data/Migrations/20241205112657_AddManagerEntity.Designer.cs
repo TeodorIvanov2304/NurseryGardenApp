@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NurseryGardenApp.Data;
 
@@ -11,9 +12,11 @@ using NurseryGardenApp.Data;
 namespace NurseryGardenApp.Data.Migrations
 {
     [DbContext(typeof(NurseryGardenDbContext))]
-    partial class NurseryGardenDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241205112657_AddManagerEntity")]
+    partial class AddManagerEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
