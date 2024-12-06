@@ -124,6 +124,25 @@ namespace NurseryGardenApp.Services.Data
 			return allProducts;
 		}
 
+		public async Task<IEnumerable<AllProductsManageViewModel>> GetAllProductsForManageAsync()
+		{
+			var allProductsForManage = await this._productRepository
+				.GetAllAttached()
+				.Where(p => p.IsDeleted == false)
+				.Select(p => new AllProductsManageViewModel
+				{
+					Id = p.Id.ToString(),
+					Name = p.Name,
+					Price = p.Price,
+					ImageURL = p.ImageUrl,
+					CategoryName = p.Category.Name,
+					Quantity = p.Quantity
+				})
+				.ToListAsync();
+
+			return allProductsForManage;
+		}
+
 		public Task<ProductDetailsViewModel?> GetProductDetailsByIdAsync(Guid id)
 		{
 			var modelDetailed = this._productRepository

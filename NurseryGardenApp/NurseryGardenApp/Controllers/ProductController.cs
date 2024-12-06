@@ -10,11 +10,13 @@ namespace NurseryGardenApp.Controllers
 		private readonly ICategoryService _categoryService;
 		private readonly IDiscountService _discountService;
 		private readonly IProductService _productService;
-		public ProductController(ICategoryService categoryService, IDiscountService discountService, IProductService productService)
+		private readonly IManagerService _managerService;
+		public ProductController(ICategoryService categoryService, IDiscountService discountService, IProductService productService, IManagerService _managerService)
 		{
 			this._categoryService = categoryService;
 			this._discountService = discountService;
 			this._productService = productService;
+			this._managerService = _managerService;
 		}
 
 		[HttpGet]
@@ -193,6 +195,23 @@ namespace NurseryGardenApp.Controllers
 			}
 
 			return this.RedirectToAction(nameof(Index));
+		}
+
+		[HttpGet]
+		[Authorize]
+		public async Task<IActionResult> Manage()
+		{
+			var userId = this.GetCurrentUserId();
+			bool isManager = await this._managerService.IsUserManagerAsync(userId);
+
+			if (isManager == false)
+			{
+				return this.RedirectToAction("Index","Home");
+			}
+
+			IEnumerable<AllProductsManageViewModel> products = await this._productService.GetAllProductsForManageAsync();
+
+			return this.View(products);
 		}
 	}
 }

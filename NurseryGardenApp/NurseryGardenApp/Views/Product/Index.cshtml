@@ -1,6 +1,8 @@
 ﻿@using NurseryGardenApp.ViewModels.Product;
-@model IEnumerable<AllProductsIndexViewModel>
-
+@using NurseryGardenApp.Services.Data.Interfaces
+@model IEnumerable<AllProductsIndexViewModel>;
+@using static NurseryGarden.Web.Infrastructure.Extensions.ClaimsPrincipalExtensions;
+@inject IManagerService managerService;
 @{
 	ViewData["Title"] = "All Products";
 }
@@ -32,9 +34,19 @@
 						<td>@product.CategoryName</td>
 						<td>@(string.IsNullOrEmpty(product.DiscountName) ? "No Discount" : product.DiscountName)</td>
 						<td>
-							<a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-warning btn-sm">Edit</a>
-							<a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger btn-sm">Delete</a>
-							<a asp-action="Details" asp-route-id="@product.Id" class="btn btn-secondary btn-sm">Details</a>
+							@if (User?.Identity?.IsAuthenticated ?? false)
+							{
+								@if (await this.managerService.IsUserManagerAsync(this.User.GetUserId()))
+								{
+									<a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger btn-sm">Delete</a>
+									<a asp-action="Details" asp-route-id="@product.Id" class="btn btn-secondary btn-sm">Details</a>
+									<a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-warning btn-sm">Edit</a>
+								}
+								else
+								{
+									<a asp-action="Details" asp-route-id="@product.Id" class="btn btn-secondary btn-sm">Details</a>
+								}
+							}
 						</td>
 					</tr>
 				}

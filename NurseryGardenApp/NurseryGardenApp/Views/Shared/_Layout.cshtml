@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using NurseryGardenApp.Services.Data.Interfaces
+@using Microsoft.AspNetCore.Identity;
+@using System.Security.Claims
+@using static NurseryGarden.Web.Infrastructure.Extensions.ClaimsPrincipalExtensions
+@inject IManagerService managerService;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -26,8 +32,32 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
 						<li class="nav-item">
-							<a class="nav-link" asp-controller="Product" asp-action="Create">Add Product</a>
+							<a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">All Products</a>
 						</li>
+
+						@if (User?.Identity?.IsAuthenticated ?? false)
+						{
+							@if (await this.managerService.IsUserManagerAsync(this.User.GetUserId()))
+							{
+								<li class="nav-item dropdown">
+									<a class="nav-link dropdown-toggle" href="#" id="managerDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+										Manager
+									</a>
+									<ul class="dropdown-menu" aria-labelledby="managerDropdown">
+										<li>
+											<a class="dropdown-item" asp-controller="Product" asp-action="Manage">Manage Products</a>
+										</li>
+										<li>
+											<a class="dropdown-item" asp-controller="Category" asp-action="Manage">Manage Categories</a>
+										</li>
+										<li>
+											<a class="dropdown-item" asp-controller="Class" asp-action="Manage">Manage Classes</a>
+										</li>
+									</ul>
+								</li>
+							}			
+						}
+							
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

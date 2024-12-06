@@ -282,6 +282,44 @@ namespace NurseryGardenApp.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "5b609661-3914-498c-bf5c-0dcdc91b0587",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "aa123144-99d3-492b-bb49-be4f9f3f5a1f",
+                            Email = "user@niakakvafirma.com",
+                            EmailConfirmed = true,
+                            FirstName = "John",
+                            LastName = "Doe",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "USER@NIAKAKVAFIRMA.COM",
+                            NormalizedUserName = "REGULARUSER",
+                            PasswordHash = "AQAAAAIAAYagAAAAEG8P4Qd6g+FSMqI/FOPBv3TgX2QFGGSb7q7A7L+xCoy8zNS1XwEyDPE6bIlpxVBIxg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "44bae4d9-65de-40ec-b33a-715828028976",
+                            TwoFactorEnabled = false,
+                            UserName = "regularUser"
+                        },
+                        new
+                        {
+                            Id = "a5993258-bd25-4747-b121-159b76bb9c2b",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "5b204bb2-cac3-49f5-aacb-f0ddd8da9f99",
+                            Email = "manager@niakakvafirma.com",
+                            EmailConfirmed = true,
+                            FirstName = "The",
+                            LastName = "Manager",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "MANAGER@NIAKAKVAFIRMA.COM",
+                            NormalizedUserName = "MANAGERUSER",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJMrll6X/j+VGB4eBQN7z3/lnY1/KCNXZgYfW2coa4VqOOLLw9GculUq660k/LGo4Q==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "21b14f49-2ec6-45a6-9c90-1a90d08f05fc",
+                            TwoFactorEnabled = false,
+                            UserName = "managerUser"
+                        });
                 });
 
             modelBuilder.Entity("NurseryGardenApp.Data.Models.Category", b =>
@@ -438,6 +476,16 @@ namespace NurseryGardenApp.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Managers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("10b1bb97-f221-4af3-b9ca-41fae9e39d68"),
+                            CreatedAt = new DateTime(2024, 12, 5, 16, 40, 14, 921, DateTimeKind.Utc).AddTicks(3312),
+                            Department = "Sales",
+                            UserId = "a5993258-bd25-4747-b121-159b76bb9c2b",
+                            WorkPhoneNumber = "+3592912233"
+                        });
                 });
 
             modelBuilder.Entity("NurseryGardenApp.Data.Models.Order", b =>
@@ -543,7 +591,7 @@ namespace NurseryGardenApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("df5b3a14-760d-49ea-a289-8962a37dce96"),
+                            Id = new Guid("a3b17a61-12b6-4563-8cae-f233619075ab"),
                             CategoryId = 8,
                             Description = "Dracaena marginata, also known as the Madagascar Dragon Tree, is a popular and striking plant that's native to Madagascar, Mauritius, and other islands in the Indian Ocean. This plant belongs to the Asparagaceae family and features long, thin, and pointed leaves that are often edged in red or pink.",
                             ImageUrl = "https://www.thespruce.com/thmb/xIs5C_juOFJ7ETNCO5wZJesYgLQ=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/grow-dracaena-marginata-indoors-1902749-2-983c52a2805144d899408949969a5728.jpg",
@@ -554,7 +602,7 @@ namespace NurseryGardenApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8a91cb6a-8a97-41ee-86f7-3ecceb0b743e"),
+                            Id = new Guid("2d658363-f294-4d28-b268-e4845aa6db46"),
                             CategoryId = 8,
                             Description = "Native to Southeast Asia, the Hoya Kerrii Variegata is a succulent-like vine that grows slowly but can eventually produce long tendrils with clusters of star-shaped, fragrant flowers under optimal conditions.",
                             ImageUrl = "https://www.happysunrize.com/cdn/shop/products/image_2626eda1-facb-413e-91b4-1ea441e7e028_1024x1024@2x.heic?v=1662041725",
@@ -565,7 +613,7 @@ namespace NurseryGardenApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a847c179-687a-47da-bd73-57d4a2dacf30"),
+                            Id = new Guid("71526bc9-029f-41f6-ae09-d394b594f9ba"),
                             CategoryId = 3,
                             Description = "Periwinkle (Vinca minor) is an excellent evergreen groundcover with dark green foliage. Oblong to ovate leaves are opposite, simple, ½ to 2 inches long, glossy, with a short petiole. They exude a milky juice when broken. Flowers are purple, blue or white depending on the cultivar.",
                             ImageUrl = "https://s3.amazonaws.com/eit-planttoolbox-prod/media/images/Catharanthus_roseus__oHpudZ0x1u7F.jpeg",
@@ -576,7 +624,7 @@ namespace NurseryGardenApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("644dc8f3-f8a3-4c52-a9c3-5d0c0d729038"),
+                            Id = new Guid("6fd3fe78-a825-401d-9260-702284bf6b85"),
                             CategoryId = 1,
                             Description = "A large, deciduous tree growing up to 20–40m tall. Also known as common oak, this species grows and matures to form a broad and spreading crown with sturdy branches beneath. Look out for: its distinctive round-lobed leaves with short leaf stalks (petioles). Identified in winter by: rounded buds in clusters.",
                             ImageUrl = "https://s3.amazonaws.com/eit-planttoolbox-prod/media/images/Quercus_robur_form_P_UnT1nhYxVeT2.jpe",
@@ -587,7 +635,7 @@ namespace NurseryGardenApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("33360010-c7e1-43c3-aa59-66db4a2a066e"),
+                            Id = new Guid("fd5e206d-716f-4a5b-8fe0-88435dbd80e2"),
                             CategoryId = 1,
                             Description = "Platanus orientalis, commonly called oriental plane tree or oriental sycamore, is a deciduous, usually single-trunk tree with distinctive, flaky, brown-gray-cream bark, large maple-like leaves and spherical fruiting balls that persist into winter.",
                             DiscountId = 1,
@@ -599,7 +647,7 @@ namespace NurseryGardenApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c660caac-5408-4bab-9ecd-b36a0790d6d2"),
+                            Id = new Guid("f81ee543-23e5-4bfd-842c-90b12a9018f0"),
                             CategoryId = 2,
                             Description = "Thuja occidentalis, also known as northern white-cedar, eastern white-cedar, or arborvitae, is an evergreen coniferous tree, in the cypress family Cupressaceae, which is native to eastern Canada and much of the north-central and northeastern United States. It is widely cultivated as an ornamental plant.",
                             DiscountId = 1,
