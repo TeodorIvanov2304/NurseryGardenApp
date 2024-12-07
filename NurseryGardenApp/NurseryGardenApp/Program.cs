@@ -40,6 +40,7 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IDiscountService, DiscountService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IManagerService, ManagerService>();
+builder.Services.AddScoped<IClassService, ClassService>();
 
 builder.Services.AddControllersWithViews();
 
