@@ -40,21 +40,10 @@ namespace NurseryGardenApp.Controllers
 			}
 
 			var categories = await _categoryService.GetAllCategoriesAsync();
+
 			var discounts = await _discountService.GetAllDiscountsAsync();
 
-			var model = new ProductCreateViewModel
-			{
-				Categories = categories.Select(c => new SelectListItem
-				{
-					Value = c.Id.ToString(),
-					Text = c.Name
-				}).ToList(),
-				Discounts = discounts.Select(d => new SelectListItem
-				{
-					Value = d.Id.ToString(),
-					Text = d.Name
-				}).ToList()
-			};
+			var model = await _productService.GetAddProductCreateAsync();
 
 			return View(model);
 		}

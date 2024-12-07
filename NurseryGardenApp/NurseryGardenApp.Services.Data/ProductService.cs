@@ -104,6 +104,29 @@ namespace NurseryGardenApp.Services.Data
 
 		}
 
+		public async Task<ProductCreateViewModel> GetAddProductCreateAsync()
+		{
+			var modelToAdd = new ProductCreateViewModel
+			{
+				Categories = await _categoriesRepository
+				.GetAllAttached()
+				.Select(c => new SelectListItem
+				{
+					Value = c.Id.ToString(),
+					Text = c.Name
+				}).ToListAsync(),
+				Discounts = await _discountRepository
+				.GetAllAttached().Select(d => new SelectListItem
+				{
+					Value = d.Id.ToString(),
+					Text = d.Name
+				}).ToListAsync()
+			};
+
+
+			return modelToAdd;
+		}
+
 		public async Task<IEnumerable<AllProductsIndexViewModel>> GetAllProductsAsync()
 		{
 			var allProducts = await this._productRepository

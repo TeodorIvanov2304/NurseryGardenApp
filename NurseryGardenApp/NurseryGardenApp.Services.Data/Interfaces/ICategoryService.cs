@@ -7,5 +7,7 @@ namespace NurseryGardenApp.Services.Data.Interfaces
 	{
 		Task<IEnumerable<Category>> GetAllCategoriesAsync();
 		Task<IEnumerable<AllCategoriesIndexViewModel>> GetAllCategoriesIndexAsync();
+		Task<IEnumerable<AllCategoriesIndexViewModel>> GetAllCategoriesForManageAsync();
+		Task<CategoryCreateViewModel> GetAddCategoryAsync();
 	}
 }

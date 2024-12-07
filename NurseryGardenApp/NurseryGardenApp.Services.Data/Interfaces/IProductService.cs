@@ -4,6 +4,7 @@ namespace NurseryGardenApp.Services.Data.Interfaces
 {
 	public interface IProductService
 	{
+		Task<ProductCreateViewModel> GetAddProductCreateAsync();
 		Task<bool> AddProductAsync(ProductCreateViewModel viewModel);
 		Task<IEnumerable<AllProductsIndexViewModel>> GetAllProductsAsync();
 		Task<IEnumerable<AllProductsManageViewModel>> GetAllProductsForManageAsync();
