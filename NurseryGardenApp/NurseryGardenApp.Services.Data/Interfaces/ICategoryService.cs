@@ -11,5 +11,7 @@ namespace NurseryGardenApp.Services.Data.Interfaces
 		Task<CategoryCreateViewModel> GetAddCategoryAsync();
 		Task<bool> AddCategoryAsync(CategoryCreateViewModel viewModel);
 		Task<EditCategoryViewModel?> GetCategoryForEditByIdAsync(int? id);
+		Task<bool> EditCategoryAsync(EditCategoryViewModel model);
+		Task<bool> DoesCategoryExistAsync(int id);
 	}
 }

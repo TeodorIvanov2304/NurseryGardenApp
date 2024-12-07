@@ -49,34 +49,7 @@ namespace NurseryGardenApp.Controllers
 
 		[HttpGet]
 		[Authorize]
-		public async Task<IActionResult> Edit(int? id)
-		{
-			var userId = this.GetCurrentUserId();
-			bool isManager = await this._managerService.IsUserManagerAsync(userId);
-
-			if (isManager == false)
-			{
-				return this.RedirectToAction("Index", "Home");
-			}
-
-			bool isValid = this.IsIdValid(id);
-
-			if (!isValid)
-			{
-				return this.RedirectToAction("Custom404", "Error", new { message = "Invalid Category Id" });
-			}
-
-			EditCategoryViewModel? categoryToEdit = await this._categoryService.GetCategoryForEditByIdAsync(id);
-
-			if (categoryToEdit == null)
-			{
-				return RedirectToAction("Custom404", "Error", new { message = "Category not found." });
-			}
-
-			return View(categoryToEdit);
-		}
-
-
+		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create(CategoryCreateViewModel model)
 		{
 			var userId = this.GetCurrentUserId();
@@ -100,6 +73,79 @@ namespace NurseryGardenApp.Controllers
 				ModelState.AddModelError(string.Empty, "Unable to add category. Please try again.");
 				var classes = await this._classService.GetAllClassesAsync();
 				return View(model);
+			}
+
+			return RedirectToAction(nameof(Index));
+		}
+
+		[HttpGet]
+		[Authorize]
+		public async Task<IActionResult> Edit(int? id)
+		{
+			var userId = this.GetCurrentUserId();
+			bool isManager = await this._managerService.IsUserManagerAsync(userId);
+
+			if (isManager == false)
+			{
+				return this.RedirectToAction("Index", "Home");
+			}
+
+			bool isValid = this.IsIdValid(id);
+
+			if (!isValid)
+			{
+				return this.RedirectToAction("Custom404", "Error", new { message = "Invalid Category Id" });
+			}
+
+			EditCategoryViewModel? categoryToEditModel = await this._categoryService.GetCategoryForEditByIdAsync(id);
+
+			if (categoryToEditModel == null)
+			{
+				return RedirectToAction("Custom404", "Error", new { message = "Category not found." });
+			}
+
+			return View(categoryToEditModel);
+		}
+
+		[HttpPost]
+		[Authorize]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Edit(EditCategoryViewModel model, int id)
+		{
+			var userId = this.GetCurrentUserId();
+			bool isManager = await this._managerService.IsUserManagerAsync(userId);
+
+			if (isManager == false)
+			{
+				return this.RedirectToAction("Index", "Home");
+			}
+
+			if (ModelState.IsValid == false)
+			{
+				return this.View(model);
+			}
+
+			bool isValid = this.IsIdValid(id);
+
+			if (!isValid)
+			{
+				return this.RedirectToAction("Custom404", "Error", new { message = "Invalid Category Id" });
+			}
+
+			bool isCategoryExisting = await this._categoryService.DoesCategoryExistAsync(model.Id);
+
+			if (!isCategoryExisting)
+			{
+				return this.RedirectToAction("Custom404", "Error", new { message = "Category not found." });
+			}
+
+			model.Id = id;
+
+			bool result = await this._categoryService.EditCategoryAsync(model);
+
+			if (result == false)
+			{
+				return this.RedirectToAction("Custom500", "Error", new { message = "Failed to update the product." });
 			}
 
 			return RedirectToAction(nameof(Index));

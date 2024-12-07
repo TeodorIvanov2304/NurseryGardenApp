@@ -142,10 +142,8 @@ namespace NurseryGardenApp.Controllers
 			bool result = await this._productService.EditProductAsync(viewModel);
 
 			if (result == false)
-			{
-				{
-					return this.RedirectToAction("Custom500", "Error", new { message = "Failed to update the product." });
-				}
+			{				
+					return this.RedirectToAction("Custom500", "Error", new { message = "Failed to update the product." });	
 			}
 
 			return RedirectToAction(nameof(Index));

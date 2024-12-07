@@ -126,5 +126,31 @@ namespace NurseryGardenApp.Services.Data
 
 			return modelForEdit;
 		}
+
+		public async Task<bool> EditCategoryAsync(EditCategoryViewModel model)
+		{	
+
+			Category? categoryForEdit = await this._categoryRepository
+				                        .GetAllAttached()
+										.FirstOrDefaultAsync(c => c.Id == model.Id);
+
+			if (categoryForEdit == null)
+			{
+				return false;
+			}
+
+			categoryForEdit.Id = model.Id;
+			categoryForEdit.Name = model.Name;
+			categoryForEdit.ClassId = model.ClassId;
+
+			await this._categoryRepository.SaveChangesAsync();
+
+			return true;
+		}
+
+		public async Task<bool> DoesCategoryExistAsync(int id)
+		{
+			return await this._categoryRepository.GetAllAttached().AnyAsync(c => c.Id == id);
+		}
 	}
 }
