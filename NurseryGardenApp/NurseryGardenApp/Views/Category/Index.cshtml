@@ -1,0 +1,52 @@
+﻿@using NurseryGardenApp.ViewModels.Category
+@using NurseryGardenApp.Services.Data.Interfaces
+@model IEnumerable<AllCategoriesIndexViewModel>;
+@using static NurseryGarden.Web.Infrastructure.Extensions.ClaimsPrincipalExtensions;
+@inject IManagerService managerService;
+@{
+	ViewData["Title"] = "All Categories";
+}
+
+<h2>All Categories</h2>
+
+<div class="container mt-4">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Class ID</th>
+				<th>ClassName</th>
+				<th> </th>
+			</tr>
+		</thead>
+		<tbody>
+			@if (Model != null && Model.Any())
+			{
+				foreach (var category in Model)
+				{
+					<tr>
+						<td>@category.Name</td>
+						<td>@(category.ClassId.HasValue ? category.ClassId.Value.ToString() : "N/A")</td>
+						<td>@category.ClassName</td>
+						<td>
+							@if (User?.Identity?.IsAuthenticated ?? false)
+							{
+								@if (await this.managerService.IsUserManagerAsync(this.User.GetUserId()))
+								{
+									<a asp-action="Delete" asp-route-id="@category.Id" class="btn btn-danger btn-sm">Delete</a>
+									<a asp-action="Edit" asp-route-id="@category.Id" class="btn btn-warning btn-sm">Edit</a>
+								}
+							}
+						</td>
+					</tr>
+				}
+			}
+			else
+			{
+				<tr>
+					<td colspan="3" class="text-center">No categories available.</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>

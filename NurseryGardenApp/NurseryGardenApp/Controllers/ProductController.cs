@@ -31,6 +31,14 @@ namespace NurseryGardenApp.Controllers
 		[Authorize]
 		public async Task<IActionResult> Create()
 		{
+			var userId = this.GetCurrentUserId();
+			bool isManager = await this._managerService.IsUserManagerAsync(userId);
+
+			if (isManager == false)
+			{
+				return this.RedirectToAction("Index", "Home");
+			}
+
 			var categories = await _categoryService.GetAllCategoriesAsync();
 			var discounts = await _discountService.GetAllDiscountsAsync();
 
@@ -56,6 +64,14 @@ namespace NurseryGardenApp.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create(ProductCreateViewModel viewModel)
 		{
+			var userId = this.GetCurrentUserId();
+			bool isManager = await this._managerService.IsUserManagerAsync(userId);
+
+			if (isManager == false)
+			{
+				return this.RedirectToAction("Index", "Home");
+			}
+
 			if (ModelState.IsValid == false)
 			{
 				return View(viewModel);
@@ -81,6 +97,14 @@ namespace NurseryGardenApp.Controllers
 		[Authorize]
 		public async Task<IActionResult> Edit(string? id)
 		{
+			var userId = this.GetCurrentUserId();
+			bool isManager = await this._managerService.IsUserManagerAsync(userId);
+
+			if (isManager == false)
+			{
+				return this.RedirectToAction("Index", "Home");
+			}
+
 			Guid productGuid = Guid.Empty;
 			bool isValid = this.IsGuidValid(id, ref productGuid);
 
@@ -105,6 +129,14 @@ namespace NurseryGardenApp.Controllers
 		[Authorize]
 		public async Task<IActionResult> Edit(string id, EditProductViewModel viewModel)
 		{
+			var userId = this.GetCurrentUserId();
+			bool isManager = await this._managerService.IsUserManagerAsync(userId);
+
+			if (isManager == false)
+			{
+				return this.RedirectToAction("Index", "Home");
+			}
+
 			if (ModelState.IsValid == false)
 			{
 				return this.View(viewModel);
@@ -156,6 +188,14 @@ namespace NurseryGardenApp.Controllers
 		[Authorize]
 		public async Task<IActionResult> Delete(string? id)
 		{
+			var userId = this.GetCurrentUserId();
+			bool isManager = await this._managerService.IsUserManagerAsync(userId);
+
+			if (isManager == false)
+			{
+				return this.RedirectToAction("Index", "Home");
+			}
+
 			Guid productGuid = Guid.Empty;
 			bool isValid = this.IsGuidValid(id,ref productGuid);
 
@@ -178,6 +218,14 @@ namespace NurseryGardenApp.Controllers
 		[Authorize]
 		public async Task<IActionResult> DeleteConfirmed(DeleteProductViewModel model)
 		{
+			var userId = this.GetCurrentUserId();
+			bool isManager = await this._managerService.IsUserManagerAsync(userId);
+
+			if (isManager == false)
+			{
+				return this.RedirectToAction("Index", "Home");
+			}
+
 			Guid productGuid = Guid.Empty;
 			bool isValid = this.IsGuidValid(model.Id, ref productGuid);
 
