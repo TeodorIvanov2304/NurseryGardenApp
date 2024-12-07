@@ -7,7 +7,7 @@
 		IEnumerable<TType> GetAll();
 		Task<IEnumerable<TType>> GetAllAsync();
 		IQueryable<TType> GetAllAttached();
-
+		Task<bool> FindByNameAsync(string name);
 		void Add(TType item);
 		Task AddAsync(TType item);
 		void AddRange(TType[] items);

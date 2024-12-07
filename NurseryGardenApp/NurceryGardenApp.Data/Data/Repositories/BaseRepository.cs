@@ -100,6 +100,18 @@ namespace NurseryGardenApp.Data.Data.Repositories
 			return true;
 		}
 
+		public async Task<bool> FindByNameAsync(string name)
+		{
+			if (string.IsNullOrWhiteSpace(name))
+			{
+				throw new ArgumentException("Name cannot be null or empty.", nameof(name));
+			}
+
+			return await _dbSet
+						.Where(e => EF.Property<string>(e, "Name") == name)
+						.AnyAsync();
+		}
+
 		public IEnumerable<TType> GetAll()
 		{
 			return this._dbSet.ToList();

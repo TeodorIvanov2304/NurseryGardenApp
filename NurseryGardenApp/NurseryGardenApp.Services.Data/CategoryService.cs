@@ -9,15 +9,40 @@ namespace NurseryGardenApp.Services.Data
 {
 	public class CategoryService : ICategoryService
 	{	
-		private readonly IRepository<Category, int> _repository;
+		private readonly IRepository<Category, int> _categoryRepository;
 		private readonly IRepository<Class, int> _classRepository;
 
         public CategoryService(IRepository<Category, int> repository, IRepository<Class, int> classRepository)
         {
-			this._repository = repository;
+			this._categoryRepository = repository;
 			this._classRepository = classRepository;
             
         }
+
+		public async Task<bool> AddCategoryAsync(CategoryCreateViewModel viewModel)
+		{
+			if (viewModel == null)
+			{
+				return false;
+			}
+
+			if (await _classRepository.FindByNameAsync(viewModel.Name))
+			{
+				return false;
+			}
+			
+			Category category = new Category 
+			{ 
+				Name = viewModel.Name,
+				ClassId = viewModel.ClassId,
+			};
+
+			await this._categoryRepository.AddAsync(category);
+			await this._categoryRepository.SaveChangesAsync();
+
+			return true;
+
+		}
 
 		public async Task<CategoryCreateViewModel> GetAddCategoryAsync()
 		{
@@ -35,12 +60,12 @@ namespace NurseryGardenApp.Services.Data
 
 		public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
 		{
-			return await _repository.GetAllAsync();
+			return await _categoryRepository.GetAllAsync();
 		}
 
 		public async Task<IEnumerable<AllCategoriesIndexViewModel>> GetAllCategoriesForManageAsync()
 		{
-			var categoriesForManage = await this._repository
+			var categoriesForManage = await this._categoryRepository
 				.GetAllAttached()
 				.AsNoTracking()
 				.Select(c => new AllCategoriesIndexViewModel
@@ -57,7 +82,7 @@ namespace NurseryGardenApp.Services.Data
 
 		public async Task<IEnumerable<AllCategoriesIndexViewModel>> GetAllCategoriesIndexAsync()
 		{
-			List<AllCategoriesIndexViewModel> allCategories = await this._repository
+			List<AllCategoriesIndexViewModel> allCategories = await this._categoryRepository
 				.GetAllAttached()
 				.Select(c => new AllCategoriesIndexViewModel
 				{

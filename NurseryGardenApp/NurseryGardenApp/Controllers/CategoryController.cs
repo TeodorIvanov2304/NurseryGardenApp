@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NurseryGardenApp.Data.Data.Models;
 using NurseryGardenApp.Services.Data.Interfaces;
 using NurseryGardenApp.ViewModels.Category;
 using NurseryGardenApp.ViewModels.Product;
@@ -40,10 +41,41 @@ namespace NurseryGardenApp.Controllers
 
 			var classes = await this._classService.GetAllClassesAsync();
 
-			var categoryModel = await this._categoryService.GetAddCategoryAsync();
+			CategoryCreateViewModel categoryModel = await this._categoryService.GetAddCategoryAsync();
 
 			return this.View(categoryModel);
 
+		}
+
+		[HttpPost]
+		[Authorize]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Create(CategoryCreateViewModel model)
+		{
+			var userId = this.GetCurrentUserId();
+			bool isManager = await this._managerService.IsUserManagerAsync(userId);
+
+			if (isManager == false)
+			{
+				return this.RedirectToAction("Index", "Home");
+			}
+
+			if (!ModelState.IsValid)
+			{
+				var classes = await this._classService.GetAllClassesAsync();
+				return View(model);
+			}
+
+			bool result = await this._categoryService.AddCategoryAsync(model);
+
+			if (result == false)
+			{
+				ModelState.AddModelError(string.Empty, "Unable to add category. Please try again.");
+				var classes = await this._classService.GetAllClassesAsync();
+				return View(model);
+			}
+
+			return RedirectToAction(nameof(Index));
 		}
 
 

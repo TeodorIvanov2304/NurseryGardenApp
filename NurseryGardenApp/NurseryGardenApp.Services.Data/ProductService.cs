@@ -38,6 +38,11 @@ namespace NurseryGardenApp.Services.Data
 				}
 			}
 
+			if (await _productRepository.FindByNameAsync(viewModel.Name))
+			{
+				return false;
+			}
+
 			var product = new Product
 			{
 				Name = viewModel.Name,
