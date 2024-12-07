@@ -103,7 +103,7 @@ namespace NurseryGardenApp.Controllers
 			}
 
 
-			var productForEdit = await this._productService.GetProductForEditByIdAsync(productGuid);
+			EditProductViewModel? productForEdit = await this._productService.GetProductForEditByIdAsync(productGuid);
 
 			if (productForEdit == null)
 			{

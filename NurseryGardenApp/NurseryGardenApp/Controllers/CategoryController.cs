@@ -47,9 +47,36 @@ namespace NurseryGardenApp.Controllers
 
 		}
 
-		[HttpPost]
+		[HttpGet]
 		[Authorize]
-		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Edit(int? id)
+		{
+			var userId = this.GetCurrentUserId();
+			bool isManager = await this._managerService.IsUserManagerAsync(userId);
+
+			if (isManager == false)
+			{
+				return this.RedirectToAction("Index", "Home");
+			}
+
+			bool isValid = this.IsIdValid(id);
+
+			if (!isValid)
+			{
+				return this.RedirectToAction("Custom404", "Error", new { message = "Invalid Category Id" });
+			}
+
+			EditCategoryViewModel? categoryToEdit = await this._categoryService.GetCategoryForEditByIdAsync(id);
+
+			if (categoryToEdit == null)
+			{
+				return RedirectToAction("Custom404", "Error", new { message = "Category not found." });
+			}
+
+			return View(categoryToEdit);
+		}
+
+
 		public async Task<IActionResult> Create(CategoryCreateViewModel model)
 		{
 			var userId = this.GetCurrentUserId();
@@ -77,7 +104,6 @@ namespace NurseryGardenApp.Controllers
 
 			return RedirectToAction(nameof(Index));
 		}
-
 
 		[HttpGet]
 		[Authorize]

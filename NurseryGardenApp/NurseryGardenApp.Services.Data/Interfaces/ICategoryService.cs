@@ -10,5 +10,6 @@ namespace NurseryGardenApp.Services.Data.Interfaces
 		Task<IEnumerable<AllCategoriesIndexViewModel>> GetAllCategoriesForManageAsync();
 		Task<CategoryCreateViewModel> GetAddCategoryAsync();
 		Task<bool> AddCategoryAsync(CategoryCreateViewModel viewModel);
+		Task<EditCategoryViewModel?> GetCategoryForEditByIdAsync(int? id);
 	}
 }

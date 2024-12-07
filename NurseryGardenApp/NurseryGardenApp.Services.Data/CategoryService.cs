@@ -11,11 +11,13 @@ namespace NurseryGardenApp.Services.Data
 	{	
 		private readonly IRepository<Category, int> _categoryRepository;
 		private readonly IRepository<Class, int> _classRepository;
+		private readonly IClassService _classService;
 
-        public CategoryService(IRepository<Category, int> repository, IRepository<Class, int> classRepository)
+        public CategoryService(IRepository<Category, int> repository, IRepository<Class, int> classRepository, IClassService classService)
         {
 			this._categoryRepository = repository;
 			this._classRepository = classRepository;
+			this._classService = classService;
             
         }
 
@@ -94,6 +96,35 @@ namespace NurseryGardenApp.Services.Data
 				.ToListAsync();
 
 			return allCategories;
+		}
+
+		public async Task<EditCategoryViewModel?> GetCategoryForEditByIdAsync(int? id)
+		{
+			Category? category = await this._categoryRepository
+				.GetAllAttached()
+				.FirstOrDefaultAsync(c => c.Id == id);
+
+			if (category == null)
+			{
+				return null;
+			}
+
+			EditCategoryViewModel modelForEdit = new EditCategoryViewModel
+			{
+				Id = category.Id,
+				Name = category.Name,
+				ClassId = category.ClassId,
+				ClassName = category?.Class?.Name
+			};
+			var classes = await this._classService.GetAllClassesAsync();
+			modelForEdit.Classes = classes.Select(c => new SelectListItem
+			{
+				Value = c.Id.ToString(),
+				Text = c.Name,
+				Selected = modelForEdit.ClassId == c.Id
+			});
+
+			return modelForEdit;
 		}
 	}
 }

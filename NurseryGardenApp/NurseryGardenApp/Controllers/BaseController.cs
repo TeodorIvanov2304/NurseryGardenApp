@@ -17,6 +17,16 @@ namespace NurseryGardenApp.Controllers
 			return string.Empty;
 		}
 
+		protected bool IsIdValid(int? id)
+		{	
+			//Null id or id 0 or < 0
+			if (id == null || id <= 0)
+			{
+				return false;
+			}
+
+			return true;
+		}
 		protected bool IsGuidValid(string? id, ref Guid parsedGuid)
 		{
 			//Non-existing parameter in the URL
