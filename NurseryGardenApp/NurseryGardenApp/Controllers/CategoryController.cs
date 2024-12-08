@@ -4,6 +4,7 @@ using NurseryGardenApp.Data.Data.Models;
 using NurseryGardenApp.Services.Data.Interfaces;
 using NurseryGardenApp.ViewModels.Category;
 using NurseryGardenApp.ViewModels.Product;
+using System.ClientModel.Primitives;
 
 namespace NurseryGardenApp.Controllers
 {
@@ -150,6 +151,68 @@ namespace NurseryGardenApp.Controllers
 
 			return RedirectToAction(nameof(Index));
 		}
+
+		[HttpGet]
+		[Authorize]
+		public async Task<IActionResult> Delete(int? id)
+		{
+			var userId = this.GetCurrentUserId();
+			bool isManager = await this._managerService.IsUserManagerAsync(userId);
+
+			if (isManager == false)
+			{
+				return this.RedirectToAction("Index", "Home");
+			}
+
+			bool isValid = this.IsIdValid(id);
+
+			if (!isValid)
+			{
+				return this.RedirectToAction("Custom404", "Error", new { message = "Invalid Category" });
+			}
+
+			DeleteCategoryViewModel? modelToDelete = await this._categoryService.GetCategoryToDeleteByIdAsync(id);
+
+			if (modelToDelete == null)
+			{
+				return this.RedirectToAction("Custom404", "Error", new { message = "Category not found" });
+			}
+
+			return this.View(modelToDelete);
+
+		}
+
+		[HttpPost]
+		[Authorize]
+		[AutoValidateAntiforgeryToken]
+		public async Task<IActionResult> DeleteConfirmed(DeleteCategoryViewModel model)
+		{
+			var userId = this.GetCurrentUserId();
+			bool isManager = await this._managerService.IsUserManagerAsync(userId);
+
+			if (isManager == false)
+			{
+				return this.RedirectToAction("Index", "Home");
+			}
+
+			bool isValid = this.IsIdValid(model.Id);
+
+			if (!isValid)
+			{
+				return this.RedirectToAction("Custom404", "Error", new { message = "Invalid Category" });
+			}
+
+			bool isDeleted = await this._categoryService.DeleteCategoryAsync(model.Id);
+
+			if (!isDeleted)
+			{
+				ModelState.AddModelError("", "Unable to delete the category. Please try again later.");
+				return this.View(model);
+			}
+
+			return this.RedirectToAction(nameof(Index));
+		}
+
 
 		[HttpGet]
 		[Authorize]

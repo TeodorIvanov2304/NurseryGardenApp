@@ -162,5 +162,48 @@ namespace NurseryGardenApp.Services.Data
 				.Where(c => c.IsDeleted == false)
 				.AnyAsync(c => c.Id == id);
 		}
+
+		public async Task<DeleteCategoryViewModel?> GetCategoryToDeleteByIdAsync(int? id)
+		{
+			var model = await this._categoryRepository
+				.GetAllAttached()
+				.Where(c => c.IsDeleted == false)
+				.Select(c => new DeleteCategoryViewModel 
+				{
+					Id = c.Id,
+					Name = c.Name,
+					ClassName = c.Class != null ? c.Class.Name : "No class"
+				})
+				.FirstOrDefaultAsync(c => c.Id == id);
+
+
+			return model;
+		}
+
+		public async Task<bool> DeleteCategoryAsync(int id)
+		{
+
+			try
+			{
+				Category? category = await this._categoryRepository
+				.GetAllAttached()
+				.Where(c => c.IsDeleted == false)
+				.FirstOrDefaultAsync(c => c.Id == id);
+
+				if (category == null || category.IsDeleted)
+				{
+					return false;
+				}
+
+				category.IsDeleted = true;
+				await this._categoryRepository.SaveChangesAsync();
+				return true;
+			}
+			catch
+			{
+
+				return false;
+			}
+		}
 	}
 }

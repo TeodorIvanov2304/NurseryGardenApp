@@ -3,6 +3,7 @@
 
 <div class="container mt-4">
 	<h2>Delete Product</h2>
+	@Html.AntiForgeryToken()
 	<div class="card">
 		<img src="@Model.ImageUrl" class="card-img-top" alt="@Model.Name">
 		<div class="card-body">

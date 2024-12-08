@@ -1,0 +1,26 @@
+﻿@using NurseryGardenApp.ViewModels.Category
+@model DeleteCategoryViewModel
+
+<div class="container mt-4">
+	<h2>Delete Category</h2>
+	@Html.AntiForgeryToken()
+	<div class="card">
+		<div class="card-body">
+			<h5 class="card-title">Category: @Model.Name</h5>
+			@if (!string.IsNullOrEmpty(Model.ClassName))
+			{
+				<p><strong>Class:</strong> @Model.ClassName</p>
+			}
+			else
+			{
+				<p><strong>Class:</strong> No associated class</p>
+			}
+		</div>
+	</div>
+	<form asp-action="DeleteConfirmed" method="post">
+		<input type="hidden" name="Id" value="@Model.Id" />
+		<p>Are you sure you want to delete this category?</p>
+		<button type="submit" class="btn btn-danger">Delete</button>
+		<a asp-action="Index" class="btn btn-secondary">Cancel</a>
+	</form>
+</div>

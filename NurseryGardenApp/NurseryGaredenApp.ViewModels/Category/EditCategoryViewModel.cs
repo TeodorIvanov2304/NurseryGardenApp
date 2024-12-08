@@ -12,7 +12,6 @@ namespace NurseryGardenApp.ViewModels.Category
 		[MinLength(CategoryNameMinLength, ErrorMessage = "Category name is required and must be more than 2 characters.")]
 		[MaxLength(CategoryNameMaxLength, ErrorMessage = "Category name is required and must be less than 50 characters.")]
 		public string Name { get; set; } = null!;
-
 		public int? ClassId { get; set; }
 		public string? ClassName { get; set; }
 		public virtual IEnumerable<SelectListItem>? Classes { get; set; } 

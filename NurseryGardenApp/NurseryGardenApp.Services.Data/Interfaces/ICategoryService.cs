@@ -13,5 +13,7 @@ namespace NurseryGardenApp.Services.Data.Interfaces
 		Task<EditCategoryViewModel?> GetCategoryForEditByIdAsync(int? id);
 		Task<bool> EditCategoryAsync(EditCategoryViewModel model);
 		Task<bool> DoesCategoryExistAsync(int id);
+		Task<DeleteCategoryViewModel?> GetCategoryToDeleteByIdAsync(int? id);
+		Task<bool> DeleteCategoryAsync(int id);
 	}
 }

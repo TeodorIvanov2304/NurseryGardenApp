@@ -203,6 +203,7 @@ namespace NurseryGardenApp.Controllers
 
 		[HttpPost]
 		[Authorize]
+		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> DeleteConfirmed(DeleteProductViewModel model)
 		{
 			var userId = this.GetCurrentUserId();

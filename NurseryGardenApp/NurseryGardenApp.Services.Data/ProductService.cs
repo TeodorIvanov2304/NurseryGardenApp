@@ -66,7 +66,10 @@ namespace NurseryGardenApp.Services.Data
 		{
 			try
 			{
-				var product = await this._productRepository.GetByIdAsync(id);
+				Product? product = await this._productRepository
+					.GetAllAttached()
+					.Where(p => p.IsDeleted == false)
+					.FirstOrDefaultAsync(p => p.Id == id);
 
 				if (product == null || product.IsDeleted)
 				{
