@@ -16,6 +16,8 @@ namespace NurseryGardenApp.Data.Models
 		[Comment("Category name")]
 		[MaxLength(CategoryNameMaxLength)]
 		public string Name { get; set; } = null!;
+		[Comment("Is category deleted or not")]
+		public bool IsDeleted { get; set; }
 
 		[Comment("Class identifier")]
         public int? ClassId { get; set; }

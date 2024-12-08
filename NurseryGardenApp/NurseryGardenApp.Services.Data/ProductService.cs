@@ -24,7 +24,7 @@ namespace NurseryGardenApp.Services.Data
 		{
 			Category? categoryExists = await _categoriesRepository.GetByIdAsync(viewModel.CategoryId);
 
-			if (categoryExists == null)
+			if (categoryExists == null || categoryExists.IsDeleted)
 			{
 				return false;
 			}
@@ -40,7 +40,7 @@ namespace NurseryGardenApp.Services.Data
 
 			if (await _productRepository.FindByNameAsync(viewModel.Name))
 			{
-
+				return false;
 			}
 
 			var product = new Product
@@ -115,6 +115,7 @@ namespace NurseryGardenApp.Services.Data
 			{
 				Categories = await _categoriesRepository
 				.GetAllAttached()
+				.Where(c => c.IsDeleted == false)
 				.Select(c => new SelectListItem
 				{
 					Value = c.Id.ToString(),
@@ -199,14 +200,19 @@ namespace NurseryGardenApp.Services.Data
 
 			Product? product = await this._productRepository
 										 .GetAllAttached()
+										 .Where(p => p.IsDeleted == false)
 										 .FirstOrDefaultAsync(p => p.Id == id);
 
-			if (product == null)
+			if (product == null || product.IsDeleted)
 			{
 				return null;
 			}
 
-			IEnumerable<Category> categories = await this._categoriesRepository.GetAllAsync();
+			IEnumerable<Category> categories = await this._categoriesRepository
+				.GetAllAttached()
+				.Where(c => c.IsDeleted == false)
+				.ToListAsync();
+
 			IEnumerable<Discount> discounts = await this._discountRepository.GetAllAsync();
 
 			EditProductViewModel modelForEdit = new EditProductViewModel

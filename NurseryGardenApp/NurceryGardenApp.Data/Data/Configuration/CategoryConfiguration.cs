@@ -11,7 +11,6 @@ namespace NurseryGardenApp.Data.Data.Configuration
 			builder.HasData(this.SeedCategories());
 		}
 
-		//Възможна грешка? Трябва ли да се сложи ClassId, и въобще така ли трябва да е връзката?
 		private  IEnumerable<Category> SeedCategories()
 		{
 			IEnumerable<Category> categories = new List<Category>
@@ -20,47 +19,55 @@ namespace NurseryGardenApp.Data.Data.Configuration
 				{
 					Id = 1,
 					Name = "Trees",
+					IsDeleted = false,
 					ClassId = 1
 				},
 				new Category
 				{
 					Id = 2,
 					Name = "Bushes",
+					IsDeleted = false,
 					ClassId = 2
 				},
 				new Category
 				{
 					Id = 3,
 					Name = "Flowers",
+					IsDeleted = false,
 					ClassId = 4
 				},
 				new Category
 				{
 					Id = 4,
 					Name = "Seedlings",
+					IsDeleted = false,
 					ClassId = 6
 				},
 				new Category
 				{
 					Id = 5,
-					Name = "Garden"
+					Name = "Garden",
+					IsDeleted = false
 				}
 				,
 				new Category
 				{
 					Id = 6,
-					Name = "Evergreens"
+					Name = "Evergreens",
+					IsDeleted = false
 				},
 				new Category
 				{
 					Id = 7,
 					Name = "Trees",
+					IsDeleted = false,
 					ClassId = 2
 				},
 				new Category
 				{
 					Id = 8,
 					Name = "Flowers",
+					IsDeleted = false,
 					ClassId = 5
 				}
 			};

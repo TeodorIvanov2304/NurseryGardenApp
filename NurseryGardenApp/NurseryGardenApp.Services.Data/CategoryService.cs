@@ -62,14 +62,18 @@ namespace NurseryGardenApp.Services.Data
 
 		public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
 		{
-			return await _categoryRepository.GetAllAsync();
+			return await _categoryRepository
+				         .GetAllAttached()
+						 .Where(c => c.IsDeleted == false)
+						 .ToListAsync();
 		}
 
 		public async Task<IEnumerable<AllCategoriesIndexViewModel>> GetAllCategoriesForManageAsync()
 		{
-			var categoriesForManage = await this._categoryRepository
+			List<AllCategoriesIndexViewModel> categoriesForManage = await this._categoryRepository
 				.GetAllAttached()
 				.AsNoTracking()
+				.Where(c => c.IsDeleted == false)
 				.Select(c => new AllCategoriesIndexViewModel
 				{
 					Id = c.Id,
@@ -86,6 +90,7 @@ namespace NurseryGardenApp.Services.Data
 		{
 			List<AllCategoriesIndexViewModel> allCategories = await this._categoryRepository
 				.GetAllAttached()
+				.Where(c => c.IsDeleted == false)
 				.Select(c => new AllCategoriesIndexViewModel
 				{
 					Id = c.Id,
@@ -102,9 +107,10 @@ namespace NurseryGardenApp.Services.Data
 		{
 			Category? category = await this._categoryRepository
 				.GetAllAttached()
+				.Where(c => c.IsDeleted == false)
 				.FirstOrDefaultAsync(c => c.Id == id);
 
-			if (category == null)
+			if (category == null || category.IsDeleted)
 			{
 				return null;
 			}
@@ -132,9 +138,10 @@ namespace NurseryGardenApp.Services.Data
 
 			Category? categoryForEdit = await this._categoryRepository
 				                        .GetAllAttached()
+										.Where (c => c.IsDeleted == false)
 										.FirstOrDefaultAsync(c => c.Id == model.Id);
 
-			if (categoryForEdit == null)
+			if (categoryForEdit == null || categoryForEdit.IsDeleted)
 			{
 				return false;
 			}
@@ -150,7 +157,10 @@ namespace NurseryGardenApp.Services.Data
 
 		public async Task<bool> DoesCategoryExistAsync(int id)
 		{
-			return await this._categoryRepository.GetAllAttached().AnyAsync(c => c.Id == id);
+			return await this._categoryRepository
+				.GetAllAttached()
+				.Where(c => c.IsDeleted == false)
+				.AnyAsync(c => c.Id == id);
 		}
 	}
 }
