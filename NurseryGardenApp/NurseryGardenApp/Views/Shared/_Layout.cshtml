@@ -7,81 +7,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - NurseryGardenApp</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/NurseryGardenApp.styles.css" asp-append-version="true" />
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - NurseryGardenApp</title>
+	<!-- Bootstrap and Custom Styles -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/NurseryGardenApp.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NurseryGardenApp</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">All Products</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">All Categories</a>
-						</li>
-
-
-						@if (User?.Identity?.IsAuthenticated ?? false)
+	<!-- Navbar Section -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-light fixed-top">
+		<div class="container">
+			<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+				<img src="~/images/logo.png" alt="Logo" class="img-fluid" style="max-height: 50px;" />
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item">
+						<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">All Products</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">All Categories</a>
+					</li>
+					@if (User?.Identity?.IsAuthenticated ?? false)
+					{
+						if (await managerService.IsUserManagerAsync(User.GetUserId()))
 						{
-							@if (await this.managerService.IsUserManagerAsync(this.User.GetUserId()))
-							{
-								<li class="nav-item dropdown">
-									<a class="nav-link dropdown-toggle" href="#" id="managerDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-										Manager
-									</a>
-									<ul class="dropdown-menu" aria-labelledby="managerDropdown">
-										<li>
-											<a class="dropdown-item" asp-controller="Product" asp-action="Manage">Manage Products</a>
-										</li>
-										<li>
-											<a class="dropdown-item" asp-controller="Category" asp-action="Manage">Manage Categories</a>
-										</li>
-										<li>
-											<a class="dropdown-item" asp-controller="Class" asp-action="Manage">Manage Classes</a>
-										</li>
-									</ul>
-								</li>
-							}			
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle text-dark" href="#" id="managerDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									Manager
+								</a>
+								<ul class="dropdown-menu" aria-labelledby="managerDropdown">
+									<li><a class="dropdown-item" asp-controller="Product" asp-action="Manage">Manage Products</a></li>
+									<li><a class="dropdown-item" asp-controller="Category" asp-action="Manage">Manage Categories</a></li>
+									<li><a class="dropdown-item" asp-controller="Class" asp-action="Manage">Manage Classes</a></li>
+								</ul>
+							</li>
 						}
-							
-                    </ul>
-                    <partial name="_LoginPartial" />
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+					}
+				</ul>
+				<partial name="_LoginPartial" />
+			</div>
+		</div>
+	</nav>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - NurseryGardenApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+	<!-- Slider Section -->
+	<header class="slider-main mt-5">
+		<div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
+			<div class="carousel-indicators">
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+			</div>
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img src="~/images/slider-01.jpg" class="d-block w-100" alt="Slide 1">
+					<div class="carousel-caption d-none d-md-block">
+						<h3>Welcome to NurseryGardenApp</h3>
+						<p>A Great Theme for Gardening</p>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img src="~/images/slider-02.jpg" class="d-block w-100" alt="Slide 2">
+					<div class="carousel-caption d-none d-md-block">
+						<h3>Beautiful Garden</h3>
+						<p>Creating Nature in Your Backyard</p>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img src="~/images/slider-03.jpg" class="d-block w-100" alt="Slide 3">
+					<div class="carousel-caption d-none d-md-block">
+						<h3>Your Perfect Lawn</h3>
+						<p>We Take Care of Your Garden</p>
+					</div>
+				</div>
+			</div>
+			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+		</div>
+	</header>
+
+	<!-- Main Content -->
+	<div class="container mt-4">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
+
+	<!-- Footer Section -->
+	<footer class="footer bg-dark text-light py-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-md-6">
+					<h5>Contact Us</h5>
+					<p>Address: 9878/25 sec 9 rohini 35</p>
+					<p>Phone: +91-9999878398</p>
+					<p>Email: info@example.com</p>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<h5>Quick Links</h5>
+					<ul class="list-unstyled">
+						<li><a href="#" class="text-light">Privacy Policy</a></li>
+						<li><a href="#" class="text-light">Terms of Service</a></li>
+					</ul>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<h5>Follow Us</h5>
+					<ul class="social_footer_ul list-inline">
+						<li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+						<li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+						<li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="text-center mt-4">
+				&copy; 2024 NurseryGardenApp. All rights reserved.
+			</div>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
