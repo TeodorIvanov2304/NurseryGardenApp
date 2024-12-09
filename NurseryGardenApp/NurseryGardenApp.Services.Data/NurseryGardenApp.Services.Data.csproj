@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\NurceryGardenApp.Data\NurseryGardenApp.Data.csproj" />
     <ProjectReference Include="..\NurseryGardenApp.Common\NurseryGardenApp.Common.csproj" />
     <ProjectReference Include="..\NurseryGaredenApp.ViewModels\NurseryGardenApp.ViewModels.csproj" />

@@ -195,17 +195,17 @@ namespace NurseryGardenApp.Data.Migrations
                         {
                             Id = 1,
                             DiscountValue = 25.00m,
-                            EndDate = new DateTime(2025, 12, 8, 0, 0, 0, 0, DateTimeKind.Local),
+                            EndDate = new DateTime(2025, 12, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             Name = "25 percent discount",
-                            StartDate = new DateTime(2024, 12, 8, 0, 0, 0, 0, DateTimeKind.Local)
+                            StartDate = new DateTime(2024, 12, 9, 0, 0, 0, 0, DateTimeKind.Local)
                         },
                         new
                         {
                             Id = 2,
                             DiscountValue = 10.00m,
-                            EndDate = new DateTime(2025, 12, 8, 0, 0, 0, 0, DateTimeKind.Local),
+                            EndDate = new DateTime(2025, 12, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             Name = "10 percent discount",
-                            StartDate = new DateTime(2024, 12, 8, 0, 0, 0, 0, DateTimeKind.Local)
+                            StartDate = new DateTime(2024, 12, 9, 0, 0, 0, 0, DateTimeKind.Local)
                         });
                 });
 
@@ -555,7 +555,7 @@ namespace NurseryGardenApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("76c31519-c8ae-4375-b474-ad6698cdda85"),
+                            Id = new Guid("92cb6335-5d14-4a04-9286-1bed45675a5a"),
                             CategoryId = 8,
                             Description = "Dracaena marginata, also known as the Madagascar Dragon Tree, is a popular and striking plant that's native to Madagascar, Mauritius, and other islands in the Indian Ocean. This plant belongs to the Asparagaceae family and features long, thin, and pointed leaves that are often edged in red or pink.",
                             ImageUrl = "https://www.thespruce.com/thmb/xIs5C_juOFJ7ETNCO5wZJesYgLQ=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/grow-dracaena-marginata-indoors-1902749-2-983c52a2805144d899408949969a5728.jpg",
@@ -566,7 +566,7 @@ namespace NurseryGardenApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8223b148-87b2-4581-bbd1-efdd93165278"),
+                            Id = new Guid("a35e9942-2841-44dc-b0b8-ede47e5d7738"),
                             CategoryId = 8,
                             Description = "Native to Southeast Asia, the Hoya Kerrii Variegata is a succulent-like vine that grows slowly but can eventually produce long tendrils with clusters of star-shaped, fragrant flowers under optimal conditions.",
                             ImageUrl = "https://www.happysunrize.com/cdn/shop/products/image_2626eda1-facb-413e-91b4-1ea441e7e028_1024x1024@2x.heic?v=1662041725",
@@ -577,7 +577,7 @@ namespace NurseryGardenApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8f157279-4e82-428d-a592-e717698b6909"),
+                            Id = new Guid("7f4c782b-9e3f-4766-9679-12d5105666f7"),
                             CategoryId = 3,
                             Description = "Periwinkle (Vinca minor) is an excellent evergreen groundcover with dark green foliage. Oblong to ovate leaves are opposite, simple, ½ to 2 inches long, glossy, with a short petiole. They exude a milky juice when broken. Flowers are purple, blue or white depending on the cultivar.",
                             ImageUrl = "https://s3.amazonaws.com/eit-planttoolbox-prod/media/images/Catharanthus_roseus__oHpudZ0x1u7F.jpeg",
@@ -588,7 +588,7 @@ namespace NurseryGardenApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d81ea5c4-aae5-4aea-8f65-67b8ecb42491"),
+                            Id = new Guid("82607ede-b458-4b53-b79b-ccdc59506b51"),
                             CategoryId = 1,
                             Description = "A large, deciduous tree growing up to 20–40m tall. Also known as common oak, this species grows and matures to form a broad and spreading crown with sturdy branches beneath. Look out for: its distinctive round-lobed leaves with short leaf stalks (petioles). Identified in winter by: rounded buds in clusters.",
                             ImageUrl = "https://s3.amazonaws.com/eit-planttoolbox-prod/media/images/Quercus_robur_form_P_UnT1nhYxVeT2.jpe",
@@ -599,7 +599,7 @@ namespace NurseryGardenApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f3e5a992-c93c-4f69-88f6-54dff0b886ea"),
+                            Id = new Guid("5156e139-0269-4bef-ae99-50197a37de5a"),
                             CategoryId = 1,
                             Description = "Platanus orientalis, commonly called oriental plane tree or oriental sycamore, is a deciduous, usually single-trunk tree with distinctive, flaky, brown-gray-cream bark, large maple-like leaves and spherical fruiting balls that persist into winter.",
                             DiscountId = 1,
@@ -611,7 +611,7 @@ namespace NurseryGardenApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5030be3f-7e29-4980-8bbd-64e755070236"),
+                            Id = new Guid("541be969-ab1f-4dfc-aa3d-406fdc1befc4"),
                             CategoryId = 2,
                             Description = "Thuja occidentalis, also known as northern white-cedar, eastern white-cedar, or arborvitae, is an evergreen coniferous tree, in the cypress family Cupressaceae, which is native to eastern Canada and much of the north-central and northeastern United States. It is widely cultivated as an ornamental plant.",
                             DiscountId = 1,

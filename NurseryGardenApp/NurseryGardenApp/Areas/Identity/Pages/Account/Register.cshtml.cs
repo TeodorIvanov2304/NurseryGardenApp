@@ -22,7 +22,8 @@ using NurseryGardenApp.Data.Models;
 
 namespace NurseryGardenApp.Areas.Identity.Pages.Account
 {
-    public class RegisterModel : PageModel
+	[AllowAnonymous]
+	public class RegisterModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;

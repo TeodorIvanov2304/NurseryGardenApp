@@ -1,13 +1,14 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using NurseryGardenApp.Data;
+using NurseryGardenApp.Data.Data.Configuration;
 using NurseryGardenApp.Data.Data.Repositories;
 using NurseryGardenApp.Data.Data.Repositories.Interfaces;
 using NurseryGardenApp.Data.Models;
-using NurseryGardenApp.Services.Data.Interfaces;
 using NurseryGardenApp.Services.Data;
-using NurseryGardenApp.Data.Data.Models;
-
+using NurseryGardenApp.Services.Data.Interfaces;
+using static NurseryGardenApp.Web.Infrastructure.Extensions.ApplicationBuilderExtensions;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -21,16 +22,26 @@ builder.Services.AddDbContext<NurseryGardenDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 //Add Identity
-builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
-	options.SignIn.RequireConfirmedAccount = true;
+	options.SignIn.RequireConfirmedAccount = false;
 	options.Password.RequireDigit = true;
 	options.Password.RequireUppercase = true;
 	options.Password.RequireLowercase = true;
 	options.Password.RequireNonAlphanumeric = true;
 })
 .AddRoles<IdentityRole>()  // Add role management
-.AddEntityFrameworkStores<NurseryGardenDbContext>();  // Link DbContext to Identity
+.AddEntityFrameworkStores<NurseryGardenDbContext>()
+.AddSignInManager<SignInManager<ApplicationUser>>()
+.AddUserManager<UserManager<ApplicationUser>>()
+.AddDefaultTokenProviders();
+
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+	options.LoginPath = "/Identity/Account/Login";
+});
+
 
 //Register repository
 builder.Services.AddScoped(typeof(IRepository<,>), typeof(BaseRepository<,>));
@@ -44,7 +55,17 @@ builder.Services.AddScoped<IClassService, ClassService>();
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddTransient<IEmailSender, NullEmailSender>();
+
+builder.Services.AddRazorPages();
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+	var services = scope.ServiceProvider;
+	DatabaseSeeder.SeedRoles(services);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -62,7 +83,7 @@ else
 app.UseStatusCodePagesWithReExecute("/Error/Custom404");
 
 //Configure middleware for server errors
-app.UseExceptionHandler("/Error/Custom500");
+//app.UseExceptionHandler("/Error/Custom500");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -73,8 +94,15 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
+	name: "Areas",
+	pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.MapRazorPages();
+
+await app.ApplyMigrations();
 
 app.Run();

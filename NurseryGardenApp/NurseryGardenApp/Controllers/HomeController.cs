@@ -1,10 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NurseryGardenApp.Models;
 using System.Diagnostics;
 
 namespace NurseryGardenApp.Controllers
 {
-
+	[AllowAnonymous]
 	public class HomeController : Controller
 	{
 		
