@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NurseryGardenApp.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,5 +32,44 @@ namespace NurseryGardenApp.Data.Data.Configuration
 			}
 		}
 
+		public static void AssignAdminRole(IServiceProvider serviceProvider)
+		{
+			var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+			var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+
+			string? adminEmail = configuration["AdminUser:Email"];
+			string? adminPassword = configuration["AdminUser:Password"];
+
+			if (string.IsNullOrEmpty(adminEmail) || string.IsNullOrEmpty(adminPassword))
+			{
+				throw new Exception("Admin email or password is not configured properly.");
+			}
+
+			var adminUser = userManager.FindByEmailAsync(adminEmail).GetAwaiter().GetResult();
+			if (adminUser == null)
+			{
+				adminUser = new ApplicationUser
+				{
+					UserName = adminEmail,
+					Email = adminEmail
+				};
+				var createUserResult = userManager.CreateAsync(adminUser, adminPassword).GetAwaiter().GetResult();
+				if (!createUserResult.Succeeded)
+				{
+					throw new Exception($"Failed to create admin user: {adminEmail}");
+				}
+			}
+
+			var isInRole = userManager.IsInRoleAsync(adminUser, "Admin").GetAwaiter().GetResult();
+			if (!isInRole)
+			{
+				var addRoleResult = userManager.AddToRoleAsync(adminUser, "Admin").GetAwaiter().GetResult();
+				if (!addRoleResult.Succeeded)
+				{
+					throw new Exception($"Failed to assign admin role to user: {adminEmail}");
+				}
+			}
+		}
 	}
 }

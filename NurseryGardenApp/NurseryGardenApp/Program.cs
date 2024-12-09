@@ -31,7 +31,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 	options.Password.RequireNonAlphanumeric = true;
 })
 .AddRoles<IdentityRole>()  // Add role management
-.AddEntityFrameworkStores<NurseryGardenDbContext>()
+.AddEntityFrameworkStores<NurseryGardenDbContext>() // Link DbContext to Identity
 .AddSignInManager<SignInManager<ApplicationUser>>()
 .AddUserManager<UserManager<ApplicationUser>>()
 .AddDefaultTokenProviders();
@@ -65,6 +65,7 @@ using (var scope = app.Services.CreateScope())
 {
 	var services = scope.ServiceProvider;
 	DatabaseSeeder.SeedRoles(services);
+	DatabaseSeeder.AssignAdminRole(services);
 }
 
 // Configure the HTTP request pipeline.
@@ -91,6 +92,20 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthentication();
+
+app.Use((context, next) =>
+{
+	if (context.User.Identity?.IsAuthenticated == true && context.Request.Path == "/")
+	{
+		if (context.User.IsInRole("Admin"))
+		{
+			context.Response.Redirect("/Admin/Home/Index");
+			return Task.CompletedTask;
+		}
+	}
+	return next();
+});
+
 app.UseAuthorization();
 
 app.MapControllerRoute(

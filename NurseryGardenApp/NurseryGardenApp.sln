@@ -15,7 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NurseryGardenApp.ViewModels
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NurseryGardenApp.Services.Data", "NurseryGardenApp.Services.Data\NurseryGardenApp.Services.Data.csproj", "{BCF905AC-59F7-44A7-B2A9-8F3496C4A034}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NurseryGardenApp.Web.Infrastructure", "NurseryGarden.Web.Infrastructure\NurseryGardenApp.Web.Infrastructure.csproj", "{5C5EBA0C-5635-48DE-ACFD-4E7F63E9B288}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NurseryGardenApp.Web.Infrastructure", "NurseryGarden.Web.Infrastructure\NurseryGardenApp.Web.Infrastructure.csproj", "{5C5EBA0C-5635-48DE-ACFD-4E7F63E9B288}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{F0DB93ED-8E96-4EDC-B332-9503783F3988}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{E056B69E-0744-4811-89AC-E38A6AE063BC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{059EDFE0-73C9-4C6A-B168-B8EA65691B99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +60,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E6E2F6D8-548E-4B60-B871-23CED359BE7D} = {F0DB93ED-8E96-4EDC-B332-9503783F3988}
+		{567CC8E1-63A8-44D9-A0EA-5DB13DCCEC92} = {E056B69E-0744-4811-89AC-E38A6AE063BC}
+		{732017B3-AE76-44D3-BDB1-E9C453F3B76D} = {E056B69E-0744-4811-89AC-E38A6AE063BC}
+		{090DCE7F-667C-4694-ABB9-163EA862A1DF} = {F0DB93ED-8E96-4EDC-B332-9503783F3988}
+		{BCF905AC-59F7-44A7-B2A9-8F3496C4A034} = {059EDFE0-73C9-4C6A-B168-B8EA65691B99}
+		{5C5EBA0C-5635-48DE-ACFD-4E7F63E9B288} = {F0DB93ED-8E96-4EDC-B332-9503783F3988}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DE5DE4E4-C495-4DC9-8887-107E2DAFF0C7}
