@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NurseryGardenApp.Services.Data.Interfaces;
 using NurseryGardenApp.ViewModels.Product;
+using static NurseryGardenApp.Common.Utility;
 namespace NurseryGardenApp.Controllers
 {
 	public class ProductController : BaseController
@@ -95,7 +96,7 @@ namespace NurseryGardenApp.Controllers
 			}
 
 			Guid productGuid = Guid.Empty;
-			bool isValid = this.IsGuidValid(id, ref productGuid);
+			bool isValid = IsGuidValid(id, ref productGuid);
 
 			if (!isValid)
 			{
@@ -132,7 +133,7 @@ namespace NurseryGardenApp.Controllers
 			}
 
 			Guid productGuid = Guid.Empty;
-			bool isValid = this.IsGuidValid(id, ref productGuid);
+			bool isValid = IsGuidValid(id, ref productGuid);
 
 			if (!isValid)
 			{
@@ -154,7 +155,7 @@ namespace NurseryGardenApp.Controllers
 		public async Task<IActionResult> Details(string? id)
 		{
 			Guid productGuid = Guid.Empty;
-			bool isValid = this.IsGuidValid(id, ref productGuid);
+			bool isValid = IsGuidValid(id, ref productGuid);
 
 			if (!isValid)
 			{
@@ -184,7 +185,7 @@ namespace NurseryGardenApp.Controllers
 			}
 
 			Guid productGuid = Guid.Empty;
-			bool isValid = this.IsGuidValid(id,ref productGuid);
+			bool isValid = IsGuidValid(id,ref productGuid);
 
 			if (!isValid) 
 			{
@@ -215,7 +216,7 @@ namespace NurseryGardenApp.Controllers
 			}
 
 			Guid productGuid = Guid.Empty;
-			bool isValid = this.IsGuidValid(model.Id, ref productGuid);
+			bool isValid = IsGuidValid(model.Id, ref productGuid);
 
 			if (!isValid)
 			{

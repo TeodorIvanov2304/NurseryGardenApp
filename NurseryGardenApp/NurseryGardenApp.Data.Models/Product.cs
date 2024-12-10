@@ -11,6 +11,7 @@ namespace NurseryGardenApp.Data.Models
 		[Key]
 		[Required]
 		[Comment("Product identifier")]
+		[MaxLength(ProductIdMaxLength)]
         public Guid Id { get; set; }
 
 		[Required]
@@ -29,12 +30,15 @@ namespace NurseryGardenApp.Data.Models
 
 		[Required]
 		[Comment("URL of the image")]
+		[MaxLength(ProductUrlMaxLength)]
 		public string ImageUrl { get; set; } = null!;
 
 		[Required]
+		[Comment("Product quantity")]
 		[Range(ProductQuantityMinValue, ProductQuantityMaxValue)]
         public int Quantity { get; set; }
 
+		[Required]
 		[Comment("Is product deleted or not")]
         public bool IsDeleted { get; set; }
 

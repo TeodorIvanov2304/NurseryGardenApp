@@ -5,15 +5,20 @@ using NurseryGardenApp.Data;
 using NurseryGardenApp.Data.Data.Configuration;
 using NurseryGardenApp.Data.Data.Repositories;
 using NurseryGardenApp.Data.Data.Repositories.Interfaces;
+using NurseryGardenApp.Data.Data.SeedingData;
 using NurseryGardenApp.Data.Models;
 using NurseryGardenApp.Services.Data;
 using NurseryGardenApp.Services.Data.Interfaces;
 using static NurseryGardenApp.Web.Infrastructure.Extensions.ApplicationBuilderExtensions;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+string jsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, builder.Configuration.GetValue<string>("Seed:ProductsJson")!);
+
 
 //Add DbContext
 builder.Services.AddDbContext<NurseryGardenDbContext>(options =>
@@ -67,6 +72,10 @@ using (var scope = app.Services.CreateScope())
 	var services = scope.ServiceProvider;
 	DatabaseSeeder.SeedRoles(services);
 	DatabaseSeeder.AssignAdminRole(services);
+
+	var logger = services.GetRequiredService<ILogger<Program>>();
+	await DbSeeder.SeedProductsJsonAsync(services, jsonPath);
+
 }
 
 // Configure the HTTP request pipeline.

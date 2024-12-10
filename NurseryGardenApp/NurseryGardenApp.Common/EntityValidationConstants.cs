@@ -9,6 +9,8 @@
 		public const int ApplicationUserLastNameMaxLength = 250;
 
 		//Product
+		public const int ProductIdMinLength = 10;
+		public const int ProductIdMaxLength = 10;
 		public const int ProductNameMinLength = 2;
 		public const int ProductNameMaxLength = 100;
 		public const int ProductDescriptionMinLength = 20;
@@ -18,9 +20,11 @@
 		public const decimal ProductPriceMinValue = 0.1m;
 		public const decimal ProductPriceMaxValue = 10_000m;
 		public const int ProductUrlMaxLength = 500;
+
 		//Category
 		public const int CategoryNameMinLength = 2;
 		public const int CategoryNameMaxLength = 50;
+		public const int CategoryIdMinValue = 1;
 
 		//Class
 		public const int ClassNameMinLength = 2;

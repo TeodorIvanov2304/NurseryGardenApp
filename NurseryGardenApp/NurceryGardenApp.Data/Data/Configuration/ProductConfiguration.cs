@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NurseryGardenApp.Data.Models;
-
+using static NurseryGardenApp.Data.Data.SeedingData.DbSeeder;
 namespace NurseryGardenApp.Data.Data.Configuration
 {
 	public class ProductConfiguration : IEntityTypeConfiguration<Product>

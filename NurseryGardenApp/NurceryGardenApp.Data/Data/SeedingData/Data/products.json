@@ -1,0 +1,113 @@
+﻿[
+  {
+    "Id": "b43c1b78-1b92-4a72-9c39-aeb457fa09d1",
+    "Name": "Cerasus",
+    "Description": "Prunus subg. Cerasus is a subgenus of Prunus. Species of the subgenus have a single winter bud per axil. The flowers are usually in small corymbs or umbels of several together, but some species have short racemes. The fruit is a drupe and has no obvious groove along the side.",
+    "Price": 120.50,
+    "ImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Fr%C3%BChling_bl%C3%BChender_Kirschenbaum.jpg/800px-Fr%C3%BChling_bl%C3%BChender_Kirschenbaum.jpg",
+    "Quantity": 15,
+    "IsDeleted": false,
+    "CategoryId": 1,
+    "DiscountId": 1
+  },
+  {
+    "Id": "34e58abf-7e91-4a84-b3a2-61c2be435839",
+    "Name": "Rose Bush",
+    "Description": "Beautiful rose bush with red flowers.",
+    "Price": 30.00,
+    "ImageUrl": "https://cdn.shopify.com/s/files/1/0059/8835/2052/products/Red_knockout_rose_13_FGT.jpg?v=1612444401",
+    "Quantity": 25,
+    "IsDeleted": false,
+    "CategoryId": 2,
+    "DiscountId": null
+  },
+  {
+    "Id": "81a9c4d7-fcb4-4df5-9e4b-9e780f2d7b68",
+    "Name": "Tulip Bulbs",
+    "Description": "Pack of 10 tulip bulbs for planting.",
+    "Price": 15.99,
+    "ImageUrl": "https://extension.umn.edu/sites/extension.umn.edu/files/daffodil-tulip-crocus-bulbs_1.jpg",
+    "Quantity": 50,
+    "IsDeleted": false,
+    "CategoryId": 3,
+    "DiscountId": 2
+  },
+  {
+    "Id": "6cf0f0ed-cbd1-4d39-973c-1c514d3e2184",
+    "Name": "Cedar Seedlings",
+    "Description": "Cedar seedlings, ready for planting.",
+    "Price": 25.99,
+    "ImageUrl": "https://i0.wp.com/www.nurserymen.com/store/wp-content/uploads/2021/10/eastern-red-cedar-plug-seedlings-05.jpg?fit=825%2C908&ssl=1",
+    "Quantity": 30,
+    "IsDeleted": false,
+    "CategoryId": 4,
+    "DiscountId": null
+  },
+  {
+    "Id": "22f9452a-c5b8-4a2f-bc55-2b61c2e1931e",
+    "Name": "Garden Spade",
+    "Description": "Sturdy spade for garden use.",
+    "Price": 19.99,
+    "ImageUrl": "https://strongwaytools.com/wp-content/uploads/2024/01/71036@1-700x560.jpg",
+    "Quantity": 20,
+    "IsDeleted": false,
+    "CategoryId": 5,
+    "DiscountId": null
+  },
+  {
+    "Id": "5c980cfc-f7a3-4cbf-b0ec-0a4cfb8ec2e6",
+    "Name": "Caladium",
+    "Description": "Caladium is a genus of flowering plants in the family Araceae. They are often known by the common name elephant ear, heart of Jesus, and angel wings. There are over 1000 named cultivars of Caladium bicolor from the original South American plant.",
+    "Price": 19.99,
+    "ImageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0QPwVok7a2LrGmV8OCaru14knQcfXlemOBFJcqX-yfqqtYbICGer8UJqyOY7R6Xb7XJF9U8w2WHDYOvBzIDtUZQ",
+    "Quantity": 10,
+    "IsDeleted": false,
+    "CategoryId": 3,
+    "DiscountId": 1
+  },
+  {
+    "Id": "fe2c88f6-b54b-4906-bbfc-8f9bdc4327f9",
+    "Name": "Jasminum",
+    "Description": "The flowers are typically around 2.5 cm (0.98 in) in diameter. They are white or yellow, although in rare instances they can be slightly reddish. The flowers are borne in cymose clusters with a minimum of three flowers, though they can also be solitary on the ends of branchlets. Each flower has about four to nine petals, two locules, and one to four ovules. They have two stamens with very short filaments. The bracts are linear or ovate. The calyx is bell-shaped. They are usually very fragrant.",
+    "Price": 150.00,
+    "ImageUrl": "https://36vine.com/s/img/wp-content/uploads/2023/12/jasmine-flower.webp",
+    "Quantity": 55,
+    "IsDeleted": false,
+    "CategoryId": 3,
+    "DiscountId": 2
+  },
+  {
+    "Id": "3f47f183-c0e7-4bd7-84bc-162fc1a7e8d3",
+    "Name": "Orchid",
+    "Description": "Elegant orchid with purple flowers.",
+    "Price": 35.00,
+    "ImageUrl": "https://www.avasflowers.net/img/prod_img/avasflowers-purple-orchid-planter.png",
+    "Quantity": 40,
+    "IsDeleted": false,
+    "CategoryId": 8,
+    "DiscountId": null
+  },
+  {
+    "Id": "fa2a9e94-62ec-4d49-b6b6-b2659fa2a90d",
+    "Name": "Aloe Vera",
+    "Description": "Aloe vera is a succulent plant species of the genus Aloe. It is widely distributed, and is considered an invasive species in many world regions. An evergreen perennial, it originates from the Arabian Peninsula, but also grows wild in tropical, semi-tropical, and arid climates around the world.",
+    "Price": 5.00,
+    "ImageUrl": "https://www.almanac.com/sites/default/files/styles/or/public/image_nodes/aloe-vera-white-pot_sunwand24-ss_edit_0.jpg.webp?itok=GMORe7wg",
+    "Quantity": 40,
+    "IsDeleted": false,
+    "CategoryId": 3,
+    "DiscountId": null
+  },
+  {
+    "Id": "6945b4b7-de20-4967-a357-18912c8c5ad5",
+    "Name": "Crocus",
+    "Description": "Crocus is a genus of seasonal flowering plants in the family Iridaceae comprising about 100 species of perennials growing from corms. They are low growing plants, whose flower stems remain underground, that bear relatively large white, yellow, orange or purple flowers and then become dormant after flowering.",
+    "Price": 2.00,
+    "ImageUrl": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ0tUPqa1qVSSU-IbO2M3-PVbeXBxjccyiy0UR6Cvn9kad7hrJfsFDyVuBohZiUCIK_CkBwpJbMoogfsZ0vl8HJFQ",
+    "Quantity": 40,
+    "IsDeleted": false,
+    "CategoryId": 3,
+    "DiscountId": null
+  }
+
+]
