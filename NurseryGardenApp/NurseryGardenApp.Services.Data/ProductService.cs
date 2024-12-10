@@ -148,7 +148,9 @@ namespace NurseryGardenApp.Services.Data
 					Price = p.Price,
 					ImageURL = p.ImageUrl,
 					CategoryName = p.Category.Name,
-					DiscountName = p.Discount != null ? p.Discount.Name : string.Empty
+					DiscountName = p.Discount != null ? p.Discount.Name : string.Empty,
+					Discount = p.Discount!.DiscountValue,
+					PriceWithDiscount = p.Discount != null ? p.Price * (1 - (p.Discount.DiscountValue / 100)) : p.Price
 				})
 				.AsNoTracking()
 				.ToListAsync();

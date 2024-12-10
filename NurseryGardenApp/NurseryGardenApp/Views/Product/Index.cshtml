@@ -16,6 +16,7 @@
 				<th>Image</th>
 				<th>Name</th>
 				<th>Price</th>
+				<th>Price with Discount</th>
 				<th>Category</th>
 				<th>Discount</th>
 			</tr>
@@ -31,6 +32,7 @@
 						</td>
 						<td>@product.ProductName</td>
 						<td>@product.Price.ToString("C")</td>
+						<td>@product.PriceWithDiscount.ToString("C")</td>
 						<td>@product.CategoryName</td>
 						<td>@(string.IsNullOrEmpty(product.DiscountName) ? "No Discount" : product.DiscountName)</td>
 						<td>
