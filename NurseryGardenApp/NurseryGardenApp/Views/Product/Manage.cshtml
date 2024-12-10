@@ -1,7 +1,12 @@
 ﻿@using NurseryGardenApp.ViewModels.Product;
 @model IEnumerable<AllProductsManageViewModel>;
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<ApplicationUser> userManager
+
 @{
-	ViewData["Title"] = "Manage products";
+	var user = await userManager.GetUserAsync(User);
+	var isAdmin = user != null && await userManager.IsInRoleAsync(user, "Admin");
+	var isManager = user != null && await userManager.IsInRoleAsync(user, "Manager");
 }
 
 <h2 class="my-4 text-center">Manage products</h2>
@@ -42,3 +47,18 @@
 		}
 	</tbody>
 </table>
+
+<div class="text-center mt-4">
+	@if (isAdmin)
+	{
+		<a href="@Url.Action("Index", "Home", new { area = "Admin" })" class="btn btn-secondary btn-lg">
+			Back to dashboard
+		</a>
+	}
+	else if (isManager)
+	{
+		<a href="@Url.Action("Index", "Category")" class="btn btn-secondary btn-lg">
+			Back to categories
+		</a>
+	}
+</div>
