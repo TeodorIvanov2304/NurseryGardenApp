@@ -52,6 +52,7 @@ builder.Services.AddScoped<IDiscountService, DiscountService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IManagerService, ManagerService>();
 builder.Services.AddScoped<IClassService, ClassService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddControllersWithViews();
 
@@ -81,7 +82,7 @@ else
 }
 
 //Configure middleware for status codes 400
-app.UseStatusCodePagesWithReExecute("/Error/Custom404");
+//app.UseStatusCodePagesWithReExecute("/Error/Custom404");
 
 //Configure middleware for server errors
 //app.UseExceptionHandler("/Error/Custom500");

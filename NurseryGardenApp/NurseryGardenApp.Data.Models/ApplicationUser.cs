@@ -5,10 +5,9 @@ using static NurseryGardenApp.Common.EntityValidationConstants;
 
 namespace NurseryGardenApp.Data.Models
 {
-	//В този клас можем да правим разширения на Asp.Net IdentityUser
 	public class ApplicationUser : IdentityUser
 	{	
-		//Атрибута казва на Identity кои данни са GDPR 
+
 		[PersonalData]
 		[MaxLength(ApplicationUserFirstNameMaxLength)]
 		[Comment("The first name of the user")]
