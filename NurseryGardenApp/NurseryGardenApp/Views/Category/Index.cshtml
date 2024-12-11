@@ -7,6 +7,15 @@
 	ViewData["Title"] = "All Categories";
 }
 
+@if (User!.Identity!.IsAuthenticated && await managerService.IsUserManagerAsync(User.GetUserId()))
+{
+	<div class="d-flex justify-content-end mb-4">
+		<a asp-action="Create" class="btn btn-success btn-lg">
+			<i class="bi bi-plus-circle"></i> Add new category
+		</a>
+	</div>
+}
+
 <h2>All Categories</h2>
 
 <div class="container mt-4">

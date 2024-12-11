@@ -48,7 +48,7 @@ namespace NurseryGardenApp.Controllers
 
 		}
 
-		[HttpGet]
+		[HttpPost]
 		[Authorize]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create(CategoryCreateViewModel model)
