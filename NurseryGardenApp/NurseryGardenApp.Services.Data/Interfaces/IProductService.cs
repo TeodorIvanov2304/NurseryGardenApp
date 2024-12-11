@@ -1,4 +1,5 @@
-﻿using NurseryGardenApp.ViewModels.Product;
+﻿using NurseryGardenApp.Data.Models;
+using NurseryGardenApp.ViewModels.Product;
 
 namespace NurseryGardenApp.Services.Data.Interfaces
 {
@@ -15,5 +16,6 @@ namespace NurseryGardenApp.Services.Data.Interfaces
 		Task<DeleteProductViewModel?> GetProductToDeleteByIdAsync(Guid id);
 		Task<bool> DeleteProductAsync(Guid id);
 		Task<int> GetProductsCountAsync(string? searchQuery = null, string? discount = null, string? category = null);
+		Task<List<Product>> GetTopSellingProductsAsync();
 	}
 }

@@ -262,6 +262,14 @@ namespace NurseryGardenApp.Services.Data
 			return await products.CountAsync();
 		}
 
+		public async Task<List<Product>> GetTopSellingProductsAsync()
+		{
+			return await _productRepository.GetAllAttached()
+				.Where(p => !p.IsDeleted)
+				.Take(4)
+				.ToListAsync();
+		}
+
 		public Task<ProductDetailsViewModel?> GetProductDetailsByIdAsync(Guid id)
 		{
 			var modelDetailed = this._productRepository

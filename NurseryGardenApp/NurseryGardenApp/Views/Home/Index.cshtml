@@ -1,8 +1,39 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Home Page";
+	var categories = ViewData["Categories"] as List<Category>;
+	var products = ViewData["TopProducts"] as List<Product>;
 }
 
 <div class="text-center">
 	<h2 class="display-4">Welcome to Seminarium!</h2>
-	<h1 class="display-4">Explore our trees, flowers and shrubs</h1>
+	<h2 class="display-4">Explore our trees, flowers, and shrubs</h2>
+</div>
+
+
+<div class="categories-section">
+	<div class="row">
+		@foreach (var category in categories)
+		{
+			<div class="col-md-3">
+				<div class="category-card">
+					<h4>@category.Name</h4>
+				</div>
+			</div>
+		}
+	</div>
+</div>
+
+<div class="products-section">
+	<div class="row">
+		@foreach (var product in products)
+		{
+			<div class="col-md-3">
+				<div class="product-card">
+					<img src="@product.ImageUrl" alt="@product.Name" class="img-fluid" />
+					<h4>@product.Name</h4>
+					<p>@product.Price.ToString("C")</p>
+				</div>
+			</div>
+		}
+	</div>
 </div>

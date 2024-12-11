@@ -136,7 +136,7 @@ namespace NurseryGardenApp.Services.Tests
 		[Test]
 		public async Task GetAllProductsAsync_ShouldReturnCorrectData()
 		{
-			// Arrange
+
 			var productsMock = this.productData.AsQueryable().BuildMock();
 			_productRepository.Setup(r => r.GetAllAttached()).Returns(productsMock);
 
@@ -216,7 +216,6 @@ namespace NurseryGardenApp.Services.Tests
 		[Test]
 		public async Task GetProductForEditByIdAsync_ShouldReturnCorrectData_WhenProductExists()
 		{
-			// Arrange
 			var productId = Guid.NewGuid();
 			var mockProduct = new Product
 			{
