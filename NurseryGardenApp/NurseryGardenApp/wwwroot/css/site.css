@@ -21,4 +21,16 @@ body {
   margin-bottom: 60px;
 }
 
+.table-responsive {
+    margin-top: 20px;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.table td {
+    padding: 1.25rem;
+}
+
 
