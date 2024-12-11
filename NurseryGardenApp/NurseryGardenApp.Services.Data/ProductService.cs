@@ -136,33 +136,74 @@ namespace NurseryGardenApp.Services.Data
 			return modelToAdd;
 		}
 
-		public async Task<IEnumerable<AllProductsIndexViewModel>> GetAllProductsAsync(string? searchQuery = null)
+		public async Task<AllProductsSearchFilterModel> GetAllProductsAsync(string? searchQuery = null, string? discount = null, string? category = null)
 		{
-			IQueryable<Product> products = this._productRepository.GetAllAttached();
+			var categories = await this._categoriesRepository.GetAllAsync();
+			var discounts = await this._discountRepository.GetAllAsync();
 
+			var categoryList = categories.Select(c => new SelectListItem
+			{
+				Text = c.Name,
+				Value = c.Id.ToString(),
+				Selected = c.Id.ToString() == category
+			}).ToList();
+
+			var discountList = discounts.Select(d => new SelectListItem
+			{
+				Text = d.Name,
+				Value = d.Id.ToString(),
+				Selected = d.Id.ToString() == discount
+			}).ToList();
+
+			IQueryable<Product> products = this._productRepository.GetAllAttached();
 
 			if (!string.IsNullOrWhiteSpace(searchQuery))
 			{
 				searchQuery = searchQuery!.ToLower().Trim();
 				products = products
-				   .Where(p => p.Name.ToLower().Contains(searchQuery))
-				   .Where(p => p.IsDeleted == false);
+					.Where(p => p.Name.ToLower().Contains(searchQuery))
+					.Where(p => p.IsDeleted == false);
 			}
 
-			return await products
-				.Select(p => new AllProductsIndexViewModel
-				{
-					Id = p.Id.ToString(),
-					ProductName = p.Name,
-					Price = p.Price,
-					ImageURL = p.ImageUrl,
-					CategoryName = p.Category.Name,
-					DiscountName = p.Discount != null ? p.Discount.Name : string.Empty,
-					Discount = p.Discount!.DiscountValue,
-					PriceWithDiscount = p.Discount != null ? p.Price * (1 - (p.Discount.DiscountValue / 100)) : p.Price
-				})
-				.AsNoTracking()
-				.ToListAsync();
+			if (!string.IsNullOrEmpty(discount))
+			{
+				var discountId = int.Parse(discount);
+				products = products.Where(p => p.DiscountId == discountId);
+			}
+
+			if (!string.IsNullOrEmpty(category))
+			{
+				var categoryId = int.Parse(category);
+				products = products.Where(p => p.CategoryId == categoryId);
+			}
+
+			var productModels = await products
+					.Select(p => new AllProductsIndexViewModel
+					{
+						Id = p.Id.ToString(),
+						ProductName = p.Name,
+						Price = p.Price,
+						ImageURL = p.ImageUrl,
+						CategoryName = p.Category.Name,
+						DiscountName = p.Discount != null ? p.Discount.Name : string.Empty,
+						Discount = p.Discount!.DiscountValue,
+						PriceWithDiscount = p.Discount != null ? p.Price * ( (p.Discount.DiscountValue / 100)) : p.Price
+					})
+					.AsNoTracking()
+					.ToListAsync();
+
+			var model = new AllProductsSearchFilterModel
+			{
+				Products = productModels,
+				Categories = categoryList,
+				Discounts = discountList,
+				SearchQuery = searchQuery,
+				SelectedCategory = category,
+				SelectedDiscount = discount
+			};
+
+			return model;
+
 		}
 
 		public async Task<IEnumerable<AllProductsManageViewModel>> GetAllProductsForManageAsync()

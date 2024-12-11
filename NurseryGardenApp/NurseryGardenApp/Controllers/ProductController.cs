@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NurseryGardenApp.Data.Data.Models;
+using NurseryGardenApp.Data.Models;
 using NurseryGardenApp.Services.Data.Interfaces;
 using NurseryGardenApp.ViewModels.Product;
 using static NurseryGardenApp.Common.Utility;
@@ -21,13 +23,10 @@ namespace NurseryGardenApp.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Index(string? searchQuery = null)
+		public async Task<IActionResult> Index(string? searchQuery = null,string ? discount = null, string? category = null)
 		{
-			IEnumerable<AllProductsIndexViewModel> models = await this._productService.GetAllProductsAsync(searchQuery);
-
-			ViewData["SearchQuery"] = searchQuery;
-
-			return View(models);
+			var model = await this._productService.GetAllProductsAsync(searchQuery, discount, category);
+			return View(model);
 		}
 
 		[HttpGet]

@@ -1,6 +1,6 @@
 ﻿﻿@using NurseryGardenApp.ViewModels.Product;
 @using NurseryGardenApp.Services.Data.Interfaces
-@model IEnumerable<AllProductsIndexViewModel>;
+@model AllProductsSearchFilterModel;
 @using static NurseryGarden.Web.Infrastructure.Extensions.ClaimsPrincipalExtensions;
 @inject IManagerService managerService;
 @{
@@ -17,21 +17,29 @@
 				   name="searchQuery"
 				   class="form-control"
 				   placeholder="Search by name..."
-				   value="@ViewData["SearchQuery"]" />
+				   value="@Model.SearchQuery" />
 		</div>
 		<div class="col">
-			<input type="text"
-				   name="discount"
-				   class="form-control"
-				   placeholder="Filter by discount..."
-				   value="@ViewData["Discount"]" />
+			<select name="discount" class="form-control">
+				<option value="">All Discounts</option>
+				@foreach (var discount in Model.Discounts!)
+				{
+					<option value="@discount.Value" selected="@discount.Selected">
+						@discount.Text
+					</option>
+				}
+			</select>
 		</div>
 		<div class="col">
-			<input type="number"
-				   name="category"
-				   class="form-control"
-				   placeholder="Filter by category..."
-				   value="@ViewData["Category"]" />
+			<select name="category" class="form-control">
+				<option value="">All Categories</option>
+				@foreach (var category in Model.Categories!)
+				{
+					<option value="@category.Value" selected="@category.Selected">
+						@category.Text
+					</option>
+				}
+			</select>
 		</div>
 		<div class="col">
 			<button type="submit" class="btn btn-primary">Filter</button>
@@ -52,9 +60,9 @@
 			</tr>
 		</thead>
 		<tbody>
-			@if (Model != null && Model.Any())
+			@if (Model != null)
 			{
-				foreach (var product in Model)
+				foreach (var product in Model.Products!)
 				{
 					<tr>
 						<td>

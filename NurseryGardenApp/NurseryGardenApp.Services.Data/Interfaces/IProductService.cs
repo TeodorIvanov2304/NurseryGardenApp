@@ -6,7 +6,7 @@ namespace NurseryGardenApp.Services.Data.Interfaces
 	{
 		Task<ProductCreateViewModel> GetAddProductCreateAsync();
 		Task<bool> AddProductAsync(ProductCreateViewModel viewModel);
-		Task<IEnumerable<AllProductsIndexViewModel>> GetAllProductsAsync(string? searchQuery = null);
+		Task<AllProductsSearchFilterModel> GetAllProductsAsync(string? searchQuery = null, string? discount = null, string? category = null);
 		Task<IEnumerable<AllProductsManageViewModel>> GetAllProductsForManageAsync();
 		Task<EditProductViewModel?> GetProductForEditByIdAsync(Guid id);
 		Task<bool> EditProductAsync(EditProductViewModel viewModel);
