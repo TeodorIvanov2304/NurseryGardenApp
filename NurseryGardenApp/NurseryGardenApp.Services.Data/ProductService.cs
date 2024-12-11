@@ -137,11 +137,11 @@ namespace NurseryGardenApp.Services.Data
 		}
 
 		public async Task<AllProductsSearchFilterModel> GetAllProductsAsync(
-			string? searchQuery = null,
-			string? discount = null,
-			string? category = null,
-			int pageNumber = 1,
-			int pageSize = 10)
+	                 string? searchQuery = null,
+	                 string? discount = null,
+	                 string? category = null,
+	                 int pageNumber = 1,
+	                 int pageSize = 10)
 		{
 			var categories = await this._categoriesRepository
 				.GetAllAttached()
@@ -152,14 +152,14 @@ namespace NurseryGardenApp.Services.Data
 
 			var categoryList = categories.Select(c => new SelectListItem
 			{
-				Text = c.Name,
+				Text = c.Name ?? "Unknown Category",
 				Value = c.Id.ToString(),
 				Selected = c.Id.ToString() == category
 			}).ToList();
 
 			var discountList = discounts.Select(d => new SelectListItem
 			{
-				Text = d.Name,
+				Text = d.Name ?? "No Discount",
 				Value = d.Id.ToString(),
 				Selected = d.Id.ToString() == discount
 			}).ToList();
@@ -170,8 +170,7 @@ namespace NurseryGardenApp.Services.Data
 			{
 				searchQuery = searchQuery!.ToLower().Trim();
 				products = products
-					.Where(p => p.Name.ToLower().Contains(searchQuery))
-					.Where(p => p.IsDeleted == false);
+					.Where(p => p.Name.ToLower().Contains(searchQuery) && p.IsDeleted == false);
 			}
 
 			if (!string.IsNullOrEmpty(discount))
@@ -190,19 +189,19 @@ namespace NurseryGardenApp.Services.Data
 							   .Take(pageSize);
 
 			var productModels = await products
-					.Select(p => new AllProductsIndexViewModel
-					{
-						Id = p.Id.ToString(),
-						ProductName = p.Name,
-						Price = p.Price,
-						ImageURL = p.ImageUrl,
-						CategoryName = p.Category.Name,
-						DiscountName = p.Discount != null ? p.Discount.Name : string.Empty,
-						Discount = p.Discount!.DiscountValue,
-						PriceWithDiscount = p.Discount != null ? p.Price * ((p.Discount.DiscountValue / 100)) : p.Price
-					})
-					.AsNoTracking()
-					.ToListAsync();
+				.Select(p => new AllProductsIndexViewModel
+				{
+					Id = p.Id.ToString(),
+					ProductName = p.Name,
+					Price = p.Price,
+					ImageURL = p.ImageUrl,
+					CategoryName = p.Category != null ? p.Category.Name : "Unknown Category",
+					DiscountName = p.Discount != null ? p.Discount.Name : "No Discount",
+					Discount = p.Discount != null ? p.Discount.DiscountValue : 0m,
+					PriceWithDiscount = p.Discount != null ? p.Price * (p.Discount.DiscountValue / 100) : p.Price
+				})
+				.AsNoTracking()
+				.ToListAsync();
 
 			var model = new AllProductsSearchFilterModel
 			{
@@ -215,7 +214,6 @@ namespace NurseryGardenApp.Services.Data
 			};
 
 			return model;
-
 		}
 
 		public async Task<IEnumerable<AllProductsManageViewModel>> GetAllProductsForManageAsync()
@@ -349,5 +347,7 @@ namespace NurseryGardenApp.Services.Data
 
 			return modelToDelete;
 		}
+
+
 	}
 }

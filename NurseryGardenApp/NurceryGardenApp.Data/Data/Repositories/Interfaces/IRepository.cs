@@ -13,7 +13,6 @@
 		void AddRange(TType[] items);
 		Task AddRangeAsync(TType[] items);
 
-		//If we want soft delete, we have to pass (id,true)
 		bool Delete(TId id, bool softDelete = false);
 		Task<bool> DeleteAsync(TId id, bool softDelete = false);
 
