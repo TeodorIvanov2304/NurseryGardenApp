@@ -100,3 +100,46 @@
 		</tbody>
 	</table>
 </div>
+
+<nav aria-label="Page navigation" class="mt-4">
+	<ul class="pagination">
+		@if (Model.CurrentPage > 1)
+		{
+			<li class="page-item">
+				<a class="page-link" asp-action="Index"
+				   asp-route-pageNumber="@(Model.CurrentPage - 1)"
+				   asp-route-searchQuery="@Model.SearchQuery"
+				   asp-route-discount="@Model.SelectedDiscount"
+				   asp-route-category="@Model.SelectedCategory">
+					Previous
+				</a>
+			</li>
+		}
+
+		@for (int i = 1; i <= Model.TotalPages; i++)
+		{
+			<li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+				<a class="page-link" asp-action="Index"
+				   asp-route-pageNumber="@i"
+				   asp-route-searchQuery="@Model.SearchQuery"
+				   asp-route-discount="@Model.SelectedDiscount"
+				   asp-route-category="@Model.SelectedCategory">
+					@i
+				</a>
+			</li>
+		}
+
+		@if (Model.CurrentPage < Model.TotalPages)
+		{
+			<li class="page-item">
+				<a class="page-link" asp-action="Index"
+				   asp-route-pageNumber="@(Model.CurrentPage + 1)"
+				   asp-route-searchQuery="@Model.SearchQuery"
+				   asp-route-discount="@Model.SelectedDiscount"
+				   asp-route-category="@Model.SelectedCategory">
+					Next
+				</a>
+			</li>
+		}
+	</ul>
+</nav>

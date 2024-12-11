@@ -136,9 +136,18 @@ namespace NurseryGardenApp.Services.Data
 			return modelToAdd;
 		}
 
-		public async Task<AllProductsSearchFilterModel> GetAllProductsAsync(string? searchQuery = null, string? discount = null, string? category = null)
+		public async Task<AllProductsSearchFilterModel> GetAllProductsAsync(
+			string? searchQuery = null,
+			string? discount = null,
+			string? category = null,
+			int pageNumber = 1,
+			int pageSize = 10)
 		{
-			var categories = await this._categoriesRepository.GetAllAsync();
+			var categories = await this._categoriesRepository
+				.GetAllAttached()
+				.Where(c => c.IsDeleted == false)
+				.ToListAsync();
+
 			var discounts = await this._discountRepository.GetAllAsync();
 
 			var categoryList = categories.Select(c => new SelectListItem
@@ -177,6 +186,9 @@ namespace NurseryGardenApp.Services.Data
 				products = products.Where(p => p.CategoryId == categoryId);
 			}
 
+			products = products.Skip((pageNumber - 1) * pageSize)
+							   .Take(pageSize);
+
 			var productModels = await products
 					.Select(p => new AllProductsIndexViewModel
 					{
@@ -187,7 +199,7 @@ namespace NurseryGardenApp.Services.Data
 						CategoryName = p.Category.Name,
 						DiscountName = p.Discount != null ? p.Discount.Name : string.Empty,
 						Discount = p.Discount!.DiscountValue,
-						PriceWithDiscount = p.Discount != null ? p.Price * ( (p.Discount.DiscountValue / 100)) : p.Price
+						PriceWithDiscount = p.Discount != null ? p.Price * ((p.Discount.DiscountValue / 100)) : p.Price
 					})
 					.AsNoTracking()
 					.ToListAsync();
@@ -223,6 +235,33 @@ namespace NurseryGardenApp.Services.Data
 				.ToListAsync();
 
 			return allProductsForManage;
+		}
+
+		public async Task<int> GetProductsCountAsync(string? searchQuery = null, string? discount = null, string? category = null)
+		{
+			IQueryable<Product> products = this._productRepository
+										.GetAllAttached()
+										.Where(p => p.IsDeleted == false);
+
+			if (!string.IsNullOrWhiteSpace(searchQuery))
+			{
+				searchQuery = searchQuery!.ToLower().Trim();
+				products = products.Where(p => p.Name.ToLower().Contains(searchQuery));
+			}
+
+			if (!string.IsNullOrEmpty(discount))
+			{
+				var discountId = int.Parse(discount);
+				products = products.Where(p => p.DiscountId == discountId);
+			}
+
+			if (!string.IsNullOrEmpty(category))
+			{
+				var categoryId = int.Parse(category);
+				products = products.Where(p => p.CategoryId == categoryId);
+			}
+
+			return await products.CountAsync();
 		}
 
 		public Task<ProductDetailsViewModel?> GetProductDetailsByIdAsync(Guid id)

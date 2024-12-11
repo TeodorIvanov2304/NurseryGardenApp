@@ -23,9 +23,20 @@ namespace NurseryGardenApp.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Index(string? searchQuery = null,string ? discount = null, string? category = null)
+		public async Task<IActionResult> Index(string? searchQuery = null,
+			string ? discount = null, 
+			string? category = null,
+			int pageNumber = 1,
+			int pageSize = 10)
 		{
-			var model = await this._productService.GetAllProductsAsync(searchQuery, discount, category);
+			var model = await this._productService.GetAllProductsAsync(searchQuery, discount, category, pageNumber, pageSize);
+
+
+			int filteredProductsCount = await this._productService.GetProductsCountAsync(searchQuery, discount, category);
+
+			model.TotalPages = (int)Math.Ceiling((double)filteredProductsCount / model.EntitiesPerPage);
+			model.CurrentPage = pageNumber;
+
 			return View(model);
 		}
 
