@@ -136,11 +136,20 @@ namespace NurseryGardenApp.Services.Data
 			return modelToAdd;
 		}
 
-		public async Task<IEnumerable<AllProductsIndexViewModel>> GetAllProductsAsync()
+		public async Task<IEnumerable<AllProductsIndexViewModel>> GetAllProductsAsync(string? searchQuery = null)
 		{
-			var allProducts = await this._productRepository
-				.GetAllAttached()
-				.Where(p => p.IsDeleted == false)
+			IQueryable<Product> products = this._productRepository.GetAllAttached();
+
+
+			if (!string.IsNullOrWhiteSpace(searchQuery))
+			{
+				searchQuery = searchQuery!.ToLower().Trim();
+				products = products
+				   .Where(p => p.Name.ToLower().Contains(searchQuery))
+				   .Where(p => p.IsDeleted == false);
+			}
+
+			return await products
 				.Select(p => new AllProductsIndexViewModel
 				{
 					Id = p.Id.ToString(),
@@ -154,8 +163,6 @@ namespace NurseryGardenApp.Services.Data
 				})
 				.AsNoTracking()
 				.ToListAsync();
-
-			return allProducts;
 		}
 
 		public async Task<IEnumerable<AllProductsManageViewModel>> GetAllProductsForManageAsync()

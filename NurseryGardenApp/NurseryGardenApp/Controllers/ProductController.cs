@@ -21,9 +21,11 @@ namespace NurseryGardenApp.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index(string? searchQuery = null)
 		{
-			IEnumerable<AllProductsIndexViewModel> models = await this._productService.GetAllProductsAsync();
+			IEnumerable<AllProductsIndexViewModel> models = await this._productService.GetAllProductsAsync(searchQuery);
+
+			ViewData["SearchQuery"] = searchQuery;
 
 			return View(models);
 		}

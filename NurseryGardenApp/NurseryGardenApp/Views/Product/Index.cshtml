@@ -1,4 +1,4 @@
-﻿@using NurseryGardenApp.ViewModels.Product;
+﻿﻿@using NurseryGardenApp.ViewModels.Product;
 @using NurseryGardenApp.Services.Data.Interfaces
 @model IEnumerable<AllProductsIndexViewModel>;
 @using static NurseryGarden.Web.Infrastructure.Extensions.ClaimsPrincipalExtensions;
@@ -7,16 +7,46 @@
 	ViewData["Title"] = "All Products";
 }
 
+
 <h2>All Products</h2>
 
-<div class="container mt-4">
+<form method="get" asp-action="Index" class="mb-4">
+	<div class="row">
+		<div class="col">
+			<input type="text"
+				   name="searchQuery"
+				   class="form-control"
+				   placeholder="Search by name..."
+				   value="@ViewData["SearchQuery"]" />
+		</div>
+		<div class="col">
+			<input type="text"
+				   name="discount"
+				   class="form-control"
+				   placeholder="Filter by discount..."
+				   value="@ViewData["Discount"]" />
+		</div>
+		<div class="col">
+			<input type="number"
+				   name="category"
+				   class="form-control"
+				   placeholder="Filter by category..."
+				   value="@ViewData["Category"]" />
+		</div>
+		<div class="col">
+			<button type="submit" class="btn btn-primary">Filter</button>
+		</div>
+	</div>
+</form>
+
+<<div class="container mt-4">
 	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>Image</th>
 				<th>Name</th>
-				<th>Price</th>
 				<th>Price with Discount</th>
+				<th>Price</th>
 				<th>Category</th>
 				<th>Discount</th>
 			</tr>
@@ -31,8 +61,8 @@
 							<img src="@product.ImageURL" alt="@product.ProductName" class="img-thumbnail" style="max-width: 100px;" />
 						</td>
 						<td>@product.ProductName</td>
-						<td>@product.Price.ToString("C")</td>
 						<td>@product.PriceWithDiscount.ToString("C")</td>
+						<td>@product.Price.ToString("C")</td>
 						<td>@product.CategoryName</td>
 						<td>@(string.IsNullOrEmpty(product.DiscountName) ? "No Discount" : product.DiscountName)</td>
 						<td>
