@@ -15,8 +15,4 @@
     <ProjectReference Include="..\NurceryGardenApp.Data\NurseryGardenApp.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Attributes\" />
-  </ItemGroup>
-
 </Project>
