@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NurseryGardenApp.Data.Data.Models;
 using NurseryGardenApp.Services.Data.Interfaces;
 using NurseryGardenApp.ViewModels.Category;
-using NurseryGardenApp.ViewModels.Product;
-using System.ClientModel.Primitives;
+using static NurseryGardenApp.Common.ErrorMessages;
 
 namespace NurseryGardenApp.Controllers
 {
@@ -71,7 +69,7 @@ namespace NurseryGardenApp.Controllers
 
 			if (result == false)
 			{
-				ModelState.AddModelError(string.Empty, "Unable to add category. Please try again.");
+				ModelState.AddModelError(string.Empty, CannotAddCategoryErrorMessage);
 				var classes = await this._classService.GetAllClassesAsync();
 				return View(model);
 			}
@@ -95,14 +93,14 @@ namespace NurseryGardenApp.Controllers
 
 			if (!isValid)
 			{
-				return this.RedirectToAction("Custom404", "Error", new { message = "Invalid Category Id" });
+				return this.RedirectToAction("Custom404", "Error", new { message = InvalidCategoryIdErrorMessage });
 			}
 
 			EditCategoryViewModel? categoryToEditModel = await this._categoryService.GetCategoryForEditByIdAsync(id);
 
 			if (categoryToEditModel == null)
 			{
-				return RedirectToAction("Custom404", "Error", new { message = "Category not found." });
+				return RedirectToAction("Custom404", "Error", new { message = CategoryNotFound });
 			}
 
 			return View(categoryToEditModel);
@@ -130,14 +128,14 @@ namespace NurseryGardenApp.Controllers
 
 			if (!isValid)
 			{
-				return this.RedirectToAction("Custom404", "Error", new { message = "Invalid Category Id" });
+				return this.RedirectToAction("Custom404", "Error", new { message = InvalidCategoryIdErrorMessage });
 			}
 
 			bool isCategoryExisting = await this._categoryService.DoesCategoryExistAsync(model.Id);
 
 			if (!isCategoryExisting)
 			{
-				return this.RedirectToAction("Custom404", "Error", new { message = "Category not found." });
+				return this.RedirectToAction("Custom404", "Error", new { message = CategoryNotFound });
 			}
 
 			model.Id = id;
@@ -146,7 +144,7 @@ namespace NurseryGardenApp.Controllers
 
 			if (result == false)
 			{
-				return this.RedirectToAction("Custom500", "Error", new { message = "Failed to update the product." });
+				return this.RedirectToAction("Custom500", "Error", new { message = FailedToUpdateProductErrorMessage });
 			}
 
 			return RedirectToAction(nameof(Index));
@@ -168,14 +166,14 @@ namespace NurseryGardenApp.Controllers
 
 			if (!isValid)
 			{
-				return this.RedirectToAction("Custom404", "Error", new { message = "Invalid Category" });
+				return this.RedirectToAction("Custom404", "Error", new { message = InvalidCategoryErrorMessage });
 			}
 
 			DeleteCategoryViewModel? modelToDelete = await this._categoryService.GetCategoryToDeleteByIdAsync(id);
 
 			if (modelToDelete == null)
 			{
-				return this.RedirectToAction("Custom404", "Error", new { message = "Category not found" });
+				return this.RedirectToAction("Custom404", "Error", new { message = CategoryNotFound });
 			}
 
 			return this.View(modelToDelete);
@@ -199,14 +197,14 @@ namespace NurseryGardenApp.Controllers
 
 			if (!isValid)
 			{
-				return this.RedirectToAction("Custom404", "Error", new { message = "Invalid Category" });
+				return this.RedirectToAction("Custom404", "Error", new { message = InvalidCategoryErrorMessage });
 			}
 
 			bool isDeleted = await this._categoryService.DeleteCategoryAsync(model.Id);
 
 			if (!isDeleted)
 			{
-				ModelState.AddModelError("", "Unable to delete the category. Please try again later.");
+				ModelState.AddModelError("", UnableToDeleteCategoryErrorMessage);
 				return this.View(model);
 			}
 

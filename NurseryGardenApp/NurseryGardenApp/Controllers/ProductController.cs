@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using NurseryGardenApp.Data.Data.Models;
-using NurseryGardenApp.Data.Models;
 using NurseryGardenApp.Services.Data.Interfaces;
 using NurseryGardenApp.ViewModels.Product;
 using static NurseryGardenApp.Common.Utility;
+using static NurseryGardenApp.Common.ErrorMessages;
+
 namespace NurseryGardenApp.Controllers
 {
 	public class ProductController : BaseController
@@ -30,7 +29,6 @@ namespace NurseryGardenApp.Controllers
 			int pageSize = 10)
 		{
 			var model = await this._productService.GetAllProductsAsync(searchQuery, discount, category, pageNumber, pageSize);
-
 
 			int filteredProductsCount = await this._productService.GetProductsCountAsync(searchQuery, discount, category);
 
@@ -86,7 +84,7 @@ namespace NurseryGardenApp.Controllers
 
 			if (result == false)
 			{
-				ModelState.AddModelError(string.Empty, "Unable to add product. Please try again.");
+				ModelState.AddModelError(string.Empty, UnableToAddProductErrorMessage);
 				categories = await this._categoryService.GetAllCategoriesAsync();
 				discounts = await this._discountService.GetAllDiscountsAsync();
 				return View(viewModel);
@@ -112,7 +110,7 @@ namespace NurseryGardenApp.Controllers
 
 			if (!isValid)
 			{
-				return this.RedirectToAction("Custom404","Error",new { message = "Invalid Product Id"});
+				return this.RedirectToAction("Custom404","Error",new { message = InvalidProductIdErrorMessage });
 			}
 
 
@@ -120,7 +118,7 @@ namespace NurseryGardenApp.Controllers
 
 			if (productForEdit == null)
 			{
-				return RedirectToAction("Custom404", "Error", new { message = "Product not found." });
+				return RedirectToAction("Custom404", "Error", new { message = ProductNotFoundErrorMessage });
 			}
 
 			return View(productForEdit);
@@ -149,14 +147,14 @@ namespace NurseryGardenApp.Controllers
 
 			if (!isValid)
 			{
-				return this.RedirectToAction("Custom404", "Error", new { message = "Invalid Product Id" });
+				return this.RedirectToAction("Custom404", "Error", new { message = InvalidProductIdErrorMessage });
 			}
 
 			bool result = await this._productService.EditProductAsync(viewModel);
 
 			if (result == false)
 			{				
-					return this.RedirectToAction("Custom500", "Error", new { message = "Failed to update the product." });	
+					return this.RedirectToAction("Custom500", "Error", new { message = UnableToUpdateProductErrorMessage });	
 			}
 
 			return RedirectToAction(nameof(Index));
@@ -171,14 +169,14 @@ namespace NurseryGardenApp.Controllers
 
 			if (!isValid)
 			{
-				return this.RedirectToAction("Custom404", "Error", new { message = "Invalid Product Id" });
+				return this.RedirectToAction("Custom404", "Error", new { message = InvalidProductIdErrorMessage });
 			}
 
 			ProductDetailsViewModel? modelDetailed = await this._productService.GetProductDetailsByIdAsync(productGuid);
 
 			if (modelDetailed == null)
 			{
-				return RedirectToAction("Custom404", "Error", new { message = "Product not found." });
+				return RedirectToAction("Custom404", "Error", new { message = ProductNotFoundErrorMessage });
 			}
 
 			return View(modelDetailed);
@@ -201,14 +199,14 @@ namespace NurseryGardenApp.Controllers
 
 			if (!isValid) 
 			{
-				return this.RedirectToAction("Custom404", "Error", new { message = "Invalid Product" });
+				return this.RedirectToAction("Custom404", "Error", new { message = InvalidProductErrorMessage });
 			}
 
 			DeleteProductViewModel? modelToDelete = await this._productService.GetProductToDeleteByIdAsync(productGuid);
 
 			if(modelToDelete == null)
 			{
-				return this.RedirectToAction("Custom404", "Error", new { message = "Product not found" });
+				return this.RedirectToAction("Custom404", "Error", new { message = ProductNotFoundErrorMessage });
 			}
 
 			return this.View(modelToDelete);
@@ -232,14 +230,14 @@ namespace NurseryGardenApp.Controllers
 
 			if (!isValid)
 			{
-				return this.RedirectToAction("Custom404", "Error", new { message = "Invalid Product" });
+				return this.RedirectToAction("Custom404", "Error", new { message = InvalidProductErrorMessage });
 			}
 
 			bool isDeleted = await this._productService.DeleteProductAsync(productGuid);
 
 			if (!isDeleted) 
 			{
-				ModelState.AddModelError("", "Unable to delete the product. Please try again later.");
+				ModelState.AddModelError("", UnableToDeleteProductErrorMessage);
 				return this.View(model);
 			}
 

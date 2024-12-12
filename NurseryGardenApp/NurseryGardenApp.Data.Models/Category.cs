@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static NurseryGardenApp.Common.EntityValidationConstants;
+using static NurseryGardenApp.Common.ErrorMessages;
 
 namespace NurseryGardenApp.Data.Models
 {
@@ -14,7 +15,8 @@ namespace NurseryGardenApp.Data.Models
 
 		[Required]
 		[Comment("Category name")]
-		[MaxLength(CategoryNameMaxLength)]
+		[MinLength(CategoryNameMinLength, ErrorMessage = CategoryNameMinLengthErrorMessage)]
+		[MaxLength(CategoryNameMaxLength, ErrorMessage = CategoryNameMaxLengthErrorMessage)]
 		public string Name { get; set; } = null!;
 		[Comment("Is category deleted or not")]
 		public bool IsDeleted { get; set; }

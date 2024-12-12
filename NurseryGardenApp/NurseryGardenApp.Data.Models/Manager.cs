@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static NurseryGardenApp.Common.EntityValidationConstants;
+
 namespace NurseryGardenApp.Data.Models
 {
 	public class Manager

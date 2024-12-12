@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NurseryGardenApp.Data.Data.Repositories.Interfaces;
 using NurseryGardenApp.Data.Models;
+using static NurseryGardenApp.Common.ErrorMessages;
 
 namespace NurseryGardenApp.Data.Data.Repositories
 {
@@ -104,7 +105,7 @@ namespace NurseryGardenApp.Data.Data.Repositories
 		{
 			if (string.IsNullOrWhiteSpace(name))
 			{
-				throw new ArgumentException("Name cannot be null or empty.", nameof(name));
+				throw new ArgumentException($"{NameCannotBeEmptyException}", nameof(name));
 			}
 
 			return await _dbSet

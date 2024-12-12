@@ -19,6 +19,7 @@
 		public const int ProductQuantityMaxValue = 1000;
 		public const decimal ProductPriceMinValue = 0.1m;
 		public const decimal ProductPriceMaxValue = 10_000m;
+		public const int ProductUrlMinLength = 1;
 		public const int ProductUrlMaxLength = 500;
 
 		//Category
@@ -31,6 +32,7 @@
 		public const int ClassNameMaxLength = 50;
 
 		//Discount
+		public const int DiscountIdMinValue = 1;
 		public const int DiscountNameMinLength = 2;
 		public const int DiscountNameMaxLength = 50;
 		public const decimal DiscountMinValue = 0.0m;

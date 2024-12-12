@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using static NurseryGardenApp.Common.EntityValidationConstants;
+using static NurseryGardenApp.Common.ErrorMessages;
 
 namespace NurseryGardenApp.Data.Data.SeedingData.DTOs
 {
@@ -36,10 +36,10 @@ namespace NurseryGardenApp.Data.Data.SeedingData.DTOs
 		public bool IsDeleted { get; set; }
 
 		[Required]
-		[Range(1, int.MaxValue, ErrorMessage = "Category ID must be greater than 0.")]
+		[Range(1, int.MaxValue, ErrorMessage = CategoryIdCannotBeNegative)]
 		public int CategoryId { get; set; }
 
-		[Range(CategoryIdMinValue, int.MaxValue, ErrorMessage = "Discount ID must be greater than 0.")]
+		[Range(DiscountIdMinValue, int.MaxValue, ErrorMessage = DiscountIdCannotBeNegative)]
 		public int? DiscountId { get; set; }
 	}
 }

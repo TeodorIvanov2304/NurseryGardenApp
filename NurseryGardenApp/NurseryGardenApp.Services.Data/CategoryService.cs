@@ -4,6 +4,7 @@ using NurseryGardenApp.Data.Data.Repositories.Interfaces;
 using NurseryGardenApp.Data.Models;
 using NurseryGardenApp.Services.Data.Interfaces;
 using NurseryGardenApp.ViewModels.Category;
+using static NurseryGardenApp.Common.ErrorMessages;
 
 namespace NurseryGardenApp.Services.Data
 {
@@ -79,7 +80,7 @@ namespace NurseryGardenApp.Services.Data
 					Id = c.Id,
 					Name = c.Name,
 					ClassId = c.ClassId,
-					ClassName = c.Class!.Name ?? "No class"
+					ClassName = c.Class!.Name ?? CategoryServiceNoClassValue
 				})
 				.ToListAsync();
 
@@ -96,7 +97,7 @@ namespace NurseryGardenApp.Services.Data
 					Id = c.Id,
 					Name = c.Name,
 					ClassId = c.ClassId,
-					ClassName = c.Class!.Name ?? "No class"
+					ClassName = c.Class!.Name ?? CategoryServiceNoClassValue
 				})
 				.ToListAsync();
 
@@ -172,7 +173,7 @@ namespace NurseryGardenApp.Services.Data
 				{
 					Id = c.Id,
 					Name = c.Name,
-					ClassName = c.Class != null ? c.Class.Name : "No class"
+					ClassName = c.Class != null ? c.Class.Name : CategoryServiceNoClassValue
 				})
 				.FirstOrDefaultAsync(c => c.Id == id);
 

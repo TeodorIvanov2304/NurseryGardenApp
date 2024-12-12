@@ -3,6 +3,7 @@ using NurseryGardenApp.Data.Data.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static NurseryGardenApp.Common.EntityValidationConstants;
+using static NurseryGardenApp.Common.ErrorMessages;
 
 namespace NurseryGardenApp.Data.Models
 {
@@ -11,26 +12,30 @@ namespace NurseryGardenApp.Data.Models
 		[Key]
 		[Required]
 		[Comment("Product identifier")]
-		[MaxLength(ProductIdMaxLength)]
-        public Guid Id { get; set; }
+		
+		public Guid Id { get; set; }
 
 		[Required]
 		[Comment("Product name")]
-		[MaxLength(ProductNameMaxLength)]
+		[MinLength(ProductNameMinLength, ErrorMessage = ProductNameMinLengthErrorMessage)]
+		[MaxLength(ProductNameMaxLength, ErrorMessage = ProductNameMaxLengthErrorMessage)]
 		public string Name { get; set; } = null!;
 
 		[Required]
 		[Comment("Product description")]
-		[MaxLength(ProductDescriptionMaxLength)]
+		[MinLength(ProductDescriptionMinLength, ErrorMessage = ProductDescriptionMinLengthErrorMessage)]
+		[MaxLength(ProductDescriptionMaxLength, ErrorMessage = ProductDescriptionMaxLengthErrorMessage)]
 		public string Description { get; set; } = null!;
 
 		[Required]
-		[Range((double)ProductPriceMinValue, (double)ProductPriceMaxValue)]
+		[Range((double)ProductPriceMinValue, (double)ProductPriceMaxValue, ErrorMessage = ProductPriceMinAndMaxValueErrorMessage)]
         public decimal Price { get; set; }
 
 		[Required]
 		[Comment("URL of the image")]
-		[MaxLength(ProductUrlMaxLength)]
+		[MinLength(ProductUrlMinLength, ErrorMessage = ProductUrlMinLengthErrorMessage)]
+		[MaxLength(ProductUrlMaxLength, ErrorMessage = ProductUrlMaxLengthErrorMessage)]
+		[Url(ErrorMessage = ProductUrlAttributeErrorMessage)]
 		public string ImageUrl { get; set; } = null!;
 
 		[Required]

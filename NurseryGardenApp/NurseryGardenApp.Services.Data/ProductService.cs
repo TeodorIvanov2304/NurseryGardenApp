@@ -5,6 +5,7 @@ using NurseryGardenApp.Data.Data.Repositories.Interfaces;
 using NurseryGardenApp.Data.Models;
 using NurseryGardenApp.Services.Data.Interfaces;
 using NurseryGardenApp.ViewModels.Product;
+using static NurseryGardenApp.Common.ErrorMessages;
 
 namespace NurseryGardenApp.Services.Data
 {
@@ -152,14 +153,14 @@ namespace NurseryGardenApp.Services.Data
 
 			var categoryList = categories.Select(c => new SelectListItem
 			{
-				Text = c.Name ?? "Unknown Category",
+				Text = c.Name ?? ProductServiceUnknownCategoryValue,
 				Value = c.Id.ToString(),
 				Selected = c.Id.ToString() == category
 			}).ToList();
 
 			var discountList = discounts.Select(d => new SelectListItem
 			{
-				Text = d.Name ?? "No Discount",
+				Text = d.Name ?? ProductServiceNoDiscountValue,
 				Value = d.Id.ToString(),
 				Selected = d.Id.ToString() == discount
 			}).ToList();
@@ -195,8 +196,8 @@ namespace NurseryGardenApp.Services.Data
 					ProductName = p.Name,
 					Price = p.Price,
 					ImageURL = p.ImageUrl,
-					CategoryName = p.Category != null ? p.Category.Name : "Unknown Category",
-					DiscountName = p.Discount != null ? p.Discount.Name : "No Discount",
+					CategoryName = p.Category != null ? p.Category.Name : ProductServiceUnknownCategoryValue,
+					DiscountName = p.Discount != null ? p.Discount.Name : ProductServiceNoDiscountValue,
 					Discount = p.Discount != null ? p.Discount.DiscountValue : 0m,
 					PriceWithDiscount = p.Discount != null ? p.Price * (p.Discount.DiscountValue / 100) : p.Price
 				})

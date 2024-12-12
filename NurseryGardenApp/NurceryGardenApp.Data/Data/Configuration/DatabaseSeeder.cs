@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NurseryGardenApp.Data.Models;
+using static NurseryGardenApp.Common.ErrorMessages;
 
 namespace NurseryGardenApp.Data.Data.Configuration
 {
@@ -21,7 +22,7 @@ namespace NurseryGardenApp.Data.Data.Configuration
 					var result = roleManager.CreateAsync(new IdentityRole { Name = role }).GetAwaiter().GetResult();
 					if (!result.Succeeded)
 					{
-						throw new Exception($"Failed to create role: {role}");
+						throw new Exception($"{FailedToCreateRoleException} {role}");
 					}
 				}
 			}
@@ -38,7 +39,7 @@ namespace NurseryGardenApp.Data.Data.Configuration
 
 			if (string.IsNullOrEmpty(adminEmail) || string.IsNullOrEmpty(adminPassword))
 			{
-				throw new Exception("Admin email or password is not configured properly.");
+				throw new Exception(AdminEmailOrPasswordException);
 			}
 
 			var adminUser = userManager.FindByEmailAsync(adminEmail).GetAwaiter().GetResult();
@@ -52,7 +53,7 @@ namespace NurseryGardenApp.Data.Data.Configuration
 				var createUserResult = userManager.CreateAsync(adminUser, adminPassword).GetAwaiter().GetResult();
 				if (!createUserResult.Succeeded)
 				{
-					throw new Exception($"Failed to create admin user: {adminEmail}");
+					throw new Exception($"{FailedToCreateAdminException} {adminEmail}");
 				}
 			}
 
@@ -62,7 +63,7 @@ namespace NurseryGardenApp.Data.Data.Configuration
 				var addRoleResult = userManager.AddToRoleAsync(adminUser, "Admin").GetAwaiter().GetResult();
 				if (!addRoleResult.Succeeded)
 				{
-					throw new Exception($"Failed to assign admin role to user: {adminEmail}");
+					throw new Exception($"{FailedToAssignAdminRoleException} {adminEmail}");
 				}
 			}
 		}

@@ -1,11 +1,6 @@
 ﻿using NurseryGardenApp.Data.Data.Models;
 using NurseryGardenApp.Data.Data.Repositories.Interfaces;
 using NurseryGardenApp.Services.Data.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NurseryGardenApp.Services.Data
 {

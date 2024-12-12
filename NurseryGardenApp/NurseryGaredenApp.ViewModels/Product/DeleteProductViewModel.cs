@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace NurseryGardenApp.ViewModels.Product
+﻿namespace NurseryGardenApp.ViewModels.Product
 {
 	public class DeleteProductViewModel
 	{

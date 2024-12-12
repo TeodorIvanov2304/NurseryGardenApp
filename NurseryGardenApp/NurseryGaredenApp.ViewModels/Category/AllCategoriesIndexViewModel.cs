@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace NurseryGardenApp.ViewModels.Category
+﻿namespace NurseryGardenApp.ViewModels.Category
 {
 	public class AllCategoriesIndexViewModel
 	{

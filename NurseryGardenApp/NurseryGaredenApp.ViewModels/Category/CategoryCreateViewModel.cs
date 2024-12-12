@@ -1,13 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 using static NurseryGardenApp.Common.EntityValidationConstants;
+using static NurseryGardenApp.Common.ErrorMessages;
+
 namespace NurseryGardenApp.ViewModels.Category
 {
 	public class CategoryCreateViewModel
 	{
 		[Required]
-		[MinLength(CategoryNameMinLength, ErrorMessage = "Category name is required and must be more than 2 characters.")]
-		[MaxLength(CategoryNameMaxLength,ErrorMessage = "Category name is required and must be less than 50 characters.")]
+		[MinLength(CategoryNameMinLength, ErrorMessage = CategoryNameMinLengthErrorMessage)]
+		[MaxLength(CategoryNameMaxLength,ErrorMessage = CategoryNameMaxLengthErrorMessage)]
 		public string Name { get; set; } = null!;
 
 		public int? ClassId { get; set; }
