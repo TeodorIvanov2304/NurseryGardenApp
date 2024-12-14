@@ -93,8 +93,11 @@
 								}
 								else
 								{
-									<a asp-action="Details" asp-route-id="@product.Id" class="btn btn-secondary btn-sm">Details</a>
-									<a asp-action="Order" asp-route-productId="@product.Id" class="btn btn-success btn-sm">Order</a>
+									<a asp-action="Details" asp-route-id="@product.Id" class="btn btn-secondary btn-sm me-2">Details</a>
+									<form asp-controller="Order" asp-action="CreateOrder" method="post" class="d-inline">
+										<input type="hidden" name="productGuid" value="@product.Id" />
+										<button type="submit" class="btn btn-success btn-sm">Order</button>
+									</form>
 								}
 							}
 						</td>

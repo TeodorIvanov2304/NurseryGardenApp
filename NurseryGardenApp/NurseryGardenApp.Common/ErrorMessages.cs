@@ -36,6 +36,9 @@
 		public const string InvalidProductErrorMessage = "Invalid Product.";
 		public const string UnableToDeleteProductErrorMessage = "Unable to delete the product. Please try again later.";
 
+		public const string InvalidUserIdErrorMessage = "Invalid UserId";
+		public const string FailedToCreateOrderErrorMessage = "Failed to create order.";
+
 		//ViewModels and Models
 		public const string CategoryNameMinLengthErrorMessage = "Category name is required and must be more than 2 characters.";
 		public const string CategoryNameMaxLengthErrorMessage = "Category name is required and must be less than 50 characters.";
