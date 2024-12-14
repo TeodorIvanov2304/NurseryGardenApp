@@ -6,5 +6,6 @@ namespace NurseryGardenApp.Services.Data.Interfaces
 	{
 		Task<IEnumerable<OrderViewModel>> GetOrdersByClientIdAsync(Guid clientGuid);
 		Task<bool> CreateOrderAsync(Guid clientGuid, Guid productGuid);
+		decimal GetAllPrices(IEnumerable<OrderViewModel> orders);
 	}
 }

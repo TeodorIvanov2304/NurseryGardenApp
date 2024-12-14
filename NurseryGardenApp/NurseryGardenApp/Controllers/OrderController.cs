@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using static NurseryGardenApp.Common.Utility;
 using static NurseryGardenApp.Common.ErrorMessages;
 using NurseryGardenApp.Services.Data.Interfaces;
+using NurseryGardenApp.ViewModels.Order;
 
 namespace NurseryGardenApp.Controllers
 {
@@ -66,7 +67,11 @@ namespace NurseryGardenApp.Controllers
 				return this.RedirectToAction("Custom404", "Error", new { message = InvalidUserIdErrorMessage });
 			}
 
-			IEnumerable<ViewModels.Order.OrderViewModel> orders = await this._orderService.GetOrdersByClientIdAsync(clientGuid);
+			IEnumerable<OrderViewModel> orders = await this._orderService.GetOrdersByClientIdAsync(clientGuid);
+
+			
+			
+
 			return View(orders);
 		}
 	}

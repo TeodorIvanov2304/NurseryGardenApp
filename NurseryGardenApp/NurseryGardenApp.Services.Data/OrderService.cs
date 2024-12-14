@@ -66,8 +66,23 @@ namespace NurseryGardenApp.Services.Data
 			return true;
 		}
 
+		public decimal GetAllPrices(IEnumerable<OrderViewModel> orders)
+		{
+			decimal prices = 0;
+
+			foreach (var price in orders.Select(o => o.Price))
+			{
+				prices += price;
+			}
+
+			return prices;
+
+		}
+
 		public async Task<IEnumerable<OrderViewModel>> GetOrdersByClientIdAsync(Guid clientGuid)
 		{
+			
+
 			var orders = await this._orderRepository
 				.GetAllAttached()
 				.Where(o => o.ClientId == clientGuid.ToString())
@@ -81,7 +96,14 @@ namespace NurseryGardenApp.Services.Data
 					ProductNames = o.OrderProducts.Select(op => op.Product.Name).ToList()
 				}).ToListAsync();
 
-			return orders;
+			decimal totalPrices = GetAllPrices(orders);
+			var aggregatedOrders = orders.Select(order =>
+			{
+				order.TotalPrice = totalPrices;
+				return order;
+			});
+
+			return aggregatedOrders;
 		}
 	}
 }
