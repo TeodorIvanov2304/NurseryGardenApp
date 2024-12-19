@@ -28,6 +28,10 @@ namespace NurseryGardenApp.Data.Models
 		[Required]
 		[ForeignKey(nameof(ClientId))]
 		public ApplicationUser Client { get; set; } = null!;
+
+		[Required]
+		[Comment("Is this order deleted?")]
+		public bool IsDeleted { get; set; }
 		public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
 	}
 }

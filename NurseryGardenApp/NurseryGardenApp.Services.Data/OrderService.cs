@@ -3,19 +3,20 @@ using NurseryGardenApp.Data.Data.Repositories.Interfaces;
 using NurseryGardenApp.Data.Models;
 using NurseryGardenApp.Services.Data.Interfaces;
 using NurseryGardenApp.ViewModels.Order;
+using NurseryGardenApp.Web.WebAPI.DTOs;
 
 namespace NurseryGardenApp.Services.Data
 {
 	public class OrderService : IOrderService
-	{	
-		private readonly IRepository<Order,Guid> _orderRepository;
-		private readonly IRepository<Product,Guid> _productRepository;
+	{
+		private readonly IRepository<Order, Guid> _orderRepository;
+		private readonly IRepository<Product, Guid> _productRepository;
 
-        public OrderService(IRepository<Order, Guid> orderRepository, IRepository<Product, Guid> productRepository)
-        {
-            this._orderRepository = orderRepository;
+		public OrderService(IRepository<Order, Guid> orderRepository, IRepository<Product, Guid> productRepository)
+		{
+			this._orderRepository = orderRepository;
 			this._productRepository = productRepository;
-        }
+		}
 
 		public async Task<bool> CreateOrderAsync(Guid clientGuid, Guid productGuid)
 		{
@@ -44,7 +45,7 @@ namespace NurseryGardenApp.Services.Data
 
 			var orderId = Guid.NewGuid();
 
-			Order order = new Order() 
+			Order order = new Order()
 			{
 				Id = orderId,
 				OrderDate = DateTime.UtcNow,
@@ -81,29 +82,64 @@ namespace NurseryGardenApp.Services.Data
 
 		public async Task<IEnumerable<OrderViewModel>> GetOrdersByClientIdAsync(Guid clientGuid)
 		{
+
+
+			List<OrderViewModel> orders = await _orderRepository
+			   .GetAllAttached()
+			   .Where(o => o.ClientId == clientGuid.ToString() && o.IsDeleted == false)
+			   .Select(o => new OrderViewModel
+			   {
+				   Id = o.Id,
+				   Picture = o.OrderProducts.Select(op => op.Product.ImageUrl).FirstOrDefault(),
+				   OrderDate = o.OrderDate,
+				   Price = o.Price,
+				   ClientName = o.Client.FirstName,
+				   TotalPrice = o.OrderProducts.Sum(op => op.Quantity * op.Product.Price),
+				   OrderProducts = o.OrderProducts
+					   .Select(op => new OrderProductViewModel
+					   {
+						   ProductId = op.ProductId,
+						   Quantity = op.Quantity
+					   })
+					   .ToList(),
+				   ProductNames = o.OrderProducts.Select(op => op.Product.Name).ToList()
+			   })
+			   .ToListAsync();
+
 			
+			return orders;
+		}
 
-			var orders = await this._orderRepository
-				.GetAllAttached()
-				.Where(o => o.ClientId == clientGuid.ToString())
-				.Select(o => new OrderViewModel
-				{
-					Id = o.Id,
-					Picture = o.OrderProducts.Select(p => p.Product.ImageUrl).First(),
-					OrderDate = o.OrderDate,
-					Price = o.Price,
-					ClientName = o.Client.FirstName!,
-					ProductNames = o.OrderProducts.Select(op => op.Product.Name).ToList()
-				}).ToListAsync();
+		public async Task<bool> UpdateOrderProductQuantityAsync(UpdateQuantityDto updateDto)
+		{
 
-			decimal totalPrices = GetAllPrices(orders);
-			var aggregatedOrders = orders.Select(order =>
+			var orderProduct = await _orderRepository
+				 .GetAllAttached()
+			     .SelectMany(order => order.OrderProducts)
+				 .Include(o => o.Order)
+				 .Include(p => p.Product)
+				 .Where(order => order.IsDeleted == false)
+			     .FirstOrDefaultAsync(op => op.OrderId == updateDto.OrderId && op.ProductId == updateDto.ProductId);
+
+			if (orderProduct == null)
 			{
-				order.TotalPrice = totalPrices;
-				return order;
-			});
+				return false;
+			}
 
-			return aggregatedOrders;
+			if (orderProduct.Product == null || orderProduct.Order == null )
+			{
+				return false;
+			}
+
+			orderProduct.Order.Price = orderProduct.Order.OrderProducts
+				.Where(op => op.IsDeleted == false)
+				.Sum(op => op.Quantity * op.Product.Price);
+
+			orderProduct.Quantity = updateDto.Quantity;
+
+			await _orderRepository.SaveChangesAsync();
+
+			return true;
 		}
 	}
 }

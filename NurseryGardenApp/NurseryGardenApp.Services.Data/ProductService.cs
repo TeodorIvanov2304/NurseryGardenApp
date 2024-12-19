@@ -190,6 +190,7 @@ namespace NurseryGardenApp.Services.Data
 							   .Take(pageSize);
 
 			var productModels = await products
+				.Where(p => p.IsDeleted == false)
 				.Select(p => new AllProductsIndexViewModel
 				{
 					Id = p.Id.ToString(),
@@ -199,7 +200,7 @@ namespace NurseryGardenApp.Services.Data
 					CategoryName = p.Category != null ? p.Category.Name : ProductServiceUnknownCategoryValue,
 					DiscountName = p.Discount != null ? p.Discount.Name : ProductServiceNoDiscountValue,
 					Discount = p.Discount != null ? p.Discount.DiscountValue : 0m,
-					PriceWithDiscount = p.Discount != null ? p.Price * (p.Discount.DiscountValue / 100) : p.Price
+					PriceWithDiscount = p.Discount != null ? p.Price * (1 - p.Discount.DiscountValue / 100) : p.Price
 				})
 				.AsNoTracking()
 				.ToListAsync();

@@ -22,16 +22,70 @@
 				<td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
 				<td>@order.Price.ToString("C")</td>
 				<td>
-					<ul>
-						@foreach (var productName in order.ProductNames)
-						{
-							<li>@productName</li>
-						}
-					</ul>
-				</td>
+    <ul>
+        @for (int i = 0; i < order.ProductNames.Count(); i++)
+        {
+            <li>
+                @order.ProductNames[i]
+                <input type="number" id="quantity-@order.OrderProducts[i].ProductId" 
+                       value="@order.OrderProducts[i].Quantity" 
+                       min="1" style="width: 60px;" />
+                <button class="btn btn-sm btn-primary update-quantity" 
+                        data-order-id="@order.Id" 
+                        data-product-id="@order.OrderProducts[i].ProductId">
+                    Update
+                </button>
+            </li>
+        }
+    </ul>
+</td>
 			</tr>
 		}
 	</tbody>
 </table>
 
-<h2>Total price: @Model.FirstOrDefault()?.TotalPrice.ToString("C")</h2>
+<h2>Total price: @Model.Sum(order => order.TotalPrice).ToString("C")</h2>
+
+<!-- JS Section -->
+@section Scripts {
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			console.log('JavaScript Loaded');
+
+			const updateButtons = document.querySelectorAll('.update-quantity');
+
+			updateButtons.forEach(button => {
+				button.addEventListener('click', async function () {
+					console.log('Update button clicked');
+
+					const orderId = this.getAttribute('data-order-id');
+					const productId = this.getAttribute('data-product-id');
+					const quantityInput = document.getElementById(`quantity-${productId}`);
+					const quantity = quantityInput.value;
+
+					console.log(`OrderId: ${orderId}, ProductId: ${productId}, Quantity: ${quantity}`);
+
+					try {
+						const response = await fetch('https://localhost:7299/orders/update-quantity', {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+							},
+							body: JSON.stringify({ orderId, productId, quantity })
+						});
+
+						if (response.ok) {
+							alert('Quantity updated successfully.');
+							location.reload();
+						} else {
+							alert('Failed to update quantity.');
+						}
+					} catch (error) {
+						console.error('Error updating quantity:', error);
+						alert('An error occurred while updating quantity.');
+					}
+				});
+			});
+		});
+	</script>
+}

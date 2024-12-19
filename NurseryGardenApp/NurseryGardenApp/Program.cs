@@ -62,6 +62,12 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddHttpClient("WebAPI", client =>
+{
+	var baseUrl = builder.Configuration["WebAPI:BaseUrl"];
+	client.BaseAddress = new Uri(baseUrl!);
+});
+
 builder.Services.AddTransient<IEmailSender, NullEmailSender>();
 
 builder.Services.AddRazorPages();
@@ -95,7 +101,7 @@ else
 //app.UseStatusCodePagesWithReExecute("/Error/Custom404");
 
 //Configure middleware for server errors
-app.UseExceptionHandler("/Error/Custom500");
+//app.UseExceptionHandler("/Error/Custom500");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

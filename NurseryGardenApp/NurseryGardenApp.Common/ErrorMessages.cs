@@ -16,6 +16,7 @@
 		public const string CategoryIdCannotBeNegative = "Category ID must be greater than 0.";
 		public const string DiscountIdCannotBeNegative = "Discount ID must be greater than 0.";
 
+		public const string DtoProductQuantityMinAndMaxValueErrorMessage = "Quantity must be at least 1 and no more than 100";
 		//Services
 		public const string ProductServiceUnknownCategoryValue = "Unknown Category";
 		public const string ProductServiceNoDiscountValue = "No Discount";
@@ -38,6 +39,10 @@
 
 		public const string InvalidUserIdErrorMessage = "Invalid UserId";
 		public const string FailedToCreateOrderErrorMessage = "Failed to create order.";
+
+		//API Controller
+		public const string OrderProductNotFound = "Order product not found or invalid input.";
+		public const string ProductQuantityUpdatedSuccessfully = "Quantity updated successfully.";
 
 		//ViewModels and Models
 		public const string CategoryNameMinLengthErrorMessage = "Category name is required and must be more than 2 characters.";

@@ -8,6 +8,8 @@
 		public decimal Price { get; set; }
 		public string ClientName { get; set; } = null!;
         public decimal TotalPrice { get; set; }
-        public IEnumerable<string> ProductNames { get; set; } = new List<string>();
+        public int Quantity { get; set; }
+        public List<string> ProductNames { get; set; } = new List<string>();
+		public List<OrderProductViewModel> OrderProducts { get; set; } = new ();
 	}
 }

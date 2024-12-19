@@ -1,19 +1,20 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.10" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\NurceryGardenApp.Data\NurseryGardenApp.Data.csproj" />
+    <ProjectReference Include="..\NurseryGarden.Web.Infrastructure\NurseryGardenApp.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\NurseryGardenApp.Common\NurseryGardenApp.Common.csproj" />
-    <ProjectReference Include="..\NurseryGardenApp.Shared\NurseryGardenApp.Shared.csproj" />
+    <ProjectReference Include="..\NurseryGardenApp.Services.Tests\NurseryGardenApp.Services.Tests.csproj" />
     <ProjectReference Include="..\NurseryGaredenApp.ViewModels\NurseryGardenApp.ViewModels.csproj" />
   </ItemGroup>
 

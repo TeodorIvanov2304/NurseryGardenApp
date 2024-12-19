@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using static NurseryGardenApp.Common.EntityValidationConstants;
 
 namespace NurseryGardenApp.Data.Models
 {
@@ -20,6 +21,11 @@ namespace NurseryGardenApp.Data.Models
 
 		[ForeignKey(nameof(ProductId))]
 		public Product Product { get; set; } = null!;
+
+		[Required]
+		[Range(ProductQuantityMinValue, ProductQuantityMaxValue)] 
+		[Comment("Quantity of the product in the order")]
+		public int Quantity { get; set; } 
 
 		[Comment("Is deleted flag")]
 		public bool IsDeleted { get; set; }

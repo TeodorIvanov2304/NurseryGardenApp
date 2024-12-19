@@ -27,7 +27,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{64B8F4D2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{61687254-54B3-44F4-AF10-B5B41201D38C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NurseryGardenApp.Services.Tests", "NurseryGardenApp.Services.Tests\NurseryGardenApp.Services.Tests.csproj", "{E20B1DD5-C6B3-41A4-9138-FA7E83924C89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NurseryGardenApp.Services.Tests", "NurseryGardenApp.Services.Tests\NurseryGardenApp.Services.Tests.csproj", "{E20B1DD5-C6B3-41A4-9138-FA7E83924C89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NurseryGardenApp.Web.WebAPI", "NurseryGardenApp.Web.WebAPI\NurseryGardenApp.Web.WebAPI.csproj", "{CABD2CF6-219A-453B-A72A-2F7DA456A1A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NurseryGardenApp.Shared", "NurseryGardenApp.Shared\NurseryGardenApp.Shared.csproj", "{EC68DDBD-BDBE-425A-BB2E-C72C2F9E4EA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +71,14 @@ Global
 		{E20B1DD5-C6B3-41A4-9138-FA7E83924C89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E20B1DD5-C6B3-41A4-9138-FA7E83924C89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E20B1DD5-C6B3-41A4-9138-FA7E83924C89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CABD2CF6-219A-453B-A72A-2F7DA456A1A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CABD2CF6-219A-453B-A72A-2F7DA456A1A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CABD2CF6-219A-453B-A72A-2F7DA456A1A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CABD2CF6-219A-453B-A72A-2F7DA456A1A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC68DDBD-BDBE-425A-BB2E-C72C2F9E4EA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC68DDBD-BDBE-425A-BB2E-C72C2F9E4EA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC68DDBD-BDBE-425A-BB2E-C72C2F9E4EA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC68DDBD-BDBE-425A-BB2E-C72C2F9E4EA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,6 +92,8 @@ Global
 		{BCF905AC-59F7-44A7-B2A9-8F3496C4A034} = {059EDFE0-73C9-4C6A-B168-B8EA65691B99}
 		{5C5EBA0C-5635-48DE-ACFD-4E7F63E9B288} = {F0DB93ED-8E96-4EDC-B332-9503783F3988}
 		{E20B1DD5-C6B3-41A4-9138-FA7E83924C89} = {64B8F4D2-5113-47F6-9D5A-4C55CA9E43F0}
+		{CABD2CF6-219A-453B-A72A-2F7DA456A1A8} = {F0DB93ED-8E96-4EDC-B332-9503783F3988}
+		{EC68DDBD-BDBE-425A-BB2E-C72C2F9E4EA7} = {61687254-54B3-44F4-AF10-B5B41201D38C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DE5DE4E4-C495-4DC9-8887-107E2DAFF0C7}

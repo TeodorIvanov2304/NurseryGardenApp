@@ -12,8 +12,8 @@ using NurseryGardenApp.Data;
 namespace NurseryGardenApp.Data.Migrations
 {
     [DbContext(typeof(NurseryGardenDbContext))]
-    [Migration("20241210212707_UpdateGuidMaxLengthRequirement")]
-    partial class UpdateGuidMaxLengthRequirement
+    [Migration("20241215141724_InitialMigrationAfterAddingQuantity")]
+    partial class InitialMigrationAfterAddingQuantity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -194,17 +194,17 @@ namespace NurseryGardenApp.Data.Migrations
                         {
                             Id = 1,
                             DiscountValue = 25.00m,
-                            EndDate = new DateTime(2025, 12, 10, 0, 0, 0, 0, DateTimeKind.Local),
+                            EndDate = new DateTime(2025, 12, 15, 0, 0, 0, 0, DateTimeKind.Local),
                             Name = "25 percent discount",
-                            StartDate = new DateTime(2024, 12, 10, 0, 0, 0, 0, DateTimeKind.Local)
+                            StartDate = new DateTime(2024, 12, 15, 0, 0, 0, 0, DateTimeKind.Local)
                         },
                         new
                         {
                             Id = 2,
                             DiscountValue = 10.00m,
-                            EndDate = new DateTime(2025, 12, 10, 0, 0, 0, 0, DateTimeKind.Local),
+                            EndDate = new DateTime(2025, 12, 15, 0, 0, 0, 0, DateTimeKind.Local),
                             Name = "10 percent discount",
-                            StartDate = new DateTime(2024, 12, 10, 0, 0, 0, 0, DateTimeKind.Local)
+                            StartDate = new DateTime(2024, 12, 15, 0, 0, 0, 0, DateTimeKind.Local)
                         });
                 });
 
@@ -493,6 +493,10 @@ namespace NurseryGardenApp.Data.Migrations
                         .HasColumnType("bit")
                         .HasComment("Is deleted flag");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int")
+                        .HasComment("Quantity of the product in the order");
+
                     b.HasKey("OrderId", "ProductId");
 
                     b.HasIndex("ProductId");
@@ -504,7 +508,6 @@ namespace NurseryGardenApp.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(10)
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Product identifier");
 
@@ -557,7 +560,7 @@ namespace NurseryGardenApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("07a0819a-6fe9-4454-8322-794f80b17753"),
+                            Id = new Guid("a12e478f-136b-4e82-bb60-c2b13ecea579"),
                             CategoryId = 8,
                             Description = "Dracaena marginata, also known as the Madagascar Dragon Tree, is a popular and striking plant that's native to Madagascar, Mauritius, and other islands in the Indian Ocean. This plant belongs to the Asparagaceae family and features long, thin, and pointed leaves that are often edged in red or pink.",
                             ImageUrl = "https://www.thespruce.com/thmb/xIs5C_juOFJ7ETNCO5wZJesYgLQ=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/grow-dracaena-marginata-indoors-1902749-2-983c52a2805144d899408949969a5728.jpg",
@@ -568,7 +571,7 @@ namespace NurseryGardenApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ed6c9963-ebc5-4fb0-b941-5c8d7f9d2f84"),
+                            Id = new Guid("f0a20a95-764c-4d8d-8018-9fa2cf4d7ed8"),
                             CategoryId = 8,
                             Description = "Native to Southeast Asia, the Hoya Kerrii Variegata is a succulent-like vine that grows slowly but can eventually produce long tendrils with clusters of star-shaped, fragrant flowers under optimal conditions.",
                             ImageUrl = "https://www.happysunrize.com/cdn/shop/products/image_2626eda1-facb-413e-91b4-1ea441e7e028_1024x1024@2x.heic?v=1662041725",
@@ -579,7 +582,7 @@ namespace NurseryGardenApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("45b4fd9f-9162-4304-8aab-16b56a2acea5"),
+                            Id = new Guid("d620a151-34a4-42e8-a404-660673fc3e3e"),
                             CategoryId = 3,
                             Description = "Periwinkle (Vinca minor) is an excellent evergreen groundcover with dark green foliage. Oblong to ovate leaves are opposite, simple, ½ to 2 inches long, glossy, with a short petiole. They exude a milky juice when broken. Flowers are purple, blue or white depending on the cultivar.",
                             ImageUrl = "https://s3.amazonaws.com/eit-planttoolbox-prod/media/images/Catharanthus_roseus__oHpudZ0x1u7F.jpeg",
@@ -590,7 +593,7 @@ namespace NurseryGardenApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0f7b5da2-44f2-47d5-b308-4e30eb40d44d"),
+                            Id = new Guid("0575ef0c-713d-419b-a407-166438e086bd"),
                             CategoryId = 1,
                             Description = "A large, deciduous tree growing up to 20–40m tall. Also known as common oak, this species grows and matures to form a broad and spreading crown with sturdy branches beneath. Look out for: its distinctive round-lobed leaves with short leaf stalks (petioles). Identified in winter by: rounded buds in clusters.",
                             ImageUrl = "https://s3.amazonaws.com/eit-planttoolbox-prod/media/images/Quercus_robur_form_P_UnT1nhYxVeT2.jpe",
@@ -601,7 +604,7 @@ namespace NurseryGardenApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("64de6d10-d6f9-4be7-8def-c1acf2298155"),
+                            Id = new Guid("e4974c82-5b78-4ca7-9ed2-61ec9ec2d725"),
                             CategoryId = 1,
                             Description = "Platanus orientalis, commonly called oriental plane tree or oriental sycamore, is a deciduous, usually single-trunk tree with distinctive, flaky, brown-gray-cream bark, large maple-like leaves and spherical fruiting balls that persist into winter.",
                             DiscountId = 1,
@@ -613,7 +616,7 @@ namespace NurseryGardenApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2561d4e1-bf0e-4cde-bf68-ac6fd70a9e3b"),
+                            Id = new Guid("986e9bc7-e727-4ce2-a2ee-a6d3da9b53d8"),
                             CategoryId = 2,
                             Description = "Thuja occidentalis, also known as northern white-cedar, eastern white-cedar, or arborvitae, is an evergreen coniferous tree, in the cypress family Cupressaceae, which is native to eastern Canada and much of the north-central and northeastern United States. It is widely cultivated as an ornamental plant.",
                             DiscountId = 1,
