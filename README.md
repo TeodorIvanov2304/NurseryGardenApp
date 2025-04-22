@@ -29,16 +29,6 @@ My final project for the ASP.NET course
 - SQL Server or LocalDB
 - Git
 
-### Clone and Run
-
-```bash
-git clone https://github.com/yourusername/NurseryGardenApp.git
-cd NurseryGardenApp
-dotnet restore
-dotnet ef database update
-dotnet run
-
-
 ### Configuration
 appsettings.json
 json
@@ -66,3 +56,14 @@ Edit
     "BaseUrl": "https://localhost:7299"
   }
 }
+
+### Clone and Run
+
+```bash
+git clone https://github.com/yourusername/NurseryGardenApp.git
+cd NurseryGardenApp
+dotnet restore
+dotnet ef database update
+dotnet run
+
+
