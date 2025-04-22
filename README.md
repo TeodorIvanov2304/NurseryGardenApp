@@ -30,10 +30,11 @@ My final project for the ASP.NET course
 - Git
 
 ### Configuration
-appsettings.json
-json
-Copy
-Edit
+
+<details>
+<summary>appsettings.json</summary>
+
+```json
 {
   "Logging": {
     "LogLevel": {
@@ -56,7 +57,9 @@ Edit
     "BaseUrl": "https://localhost:7299"
   }
 }
+```
 
+</details>
 ### Clone and Run
 
 ```bash
