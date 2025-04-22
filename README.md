@@ -7,7 +7,7 @@ My final project for the ASP.NET course
 
 ---
 
-## 🚀 Tech Stack
+## Tech Stack
 
 - ASP.NET Core 7+
 - Entity Framework Core (SQL Server)
@@ -20,7 +20,7 @@ My final project for the ASP.NET course
 
 ---
 
-## 🛠️ Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -37,3 +37,32 @@ cd NurseryGardenApp
 dotnet restore
 dotnet ef database update
 dotnet run
+
+
+## Configuration
+appsettings.json
+json
+Copy
+Edit
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "AdminUser": {
+    "Email": "admin@example.com",
+    "Password": "Admin@123"
+  },
+  "Seed": {
+    "ProductsJson": "Path\\To\\products.json"
+  },
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\\MSSQLLocalDB;Database=NurseryGardenApp;Trusted_Connection=True;TrustServerCertificate=True;"
+  },
+  "WebAPI": {
+    "BaseUrl": "https://localhost:7299"
+  }
+}
