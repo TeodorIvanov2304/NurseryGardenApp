@@ -39,7 +39,7 @@ dotnet ef database update
 dotnet run
 
 
-## Configuration
+### Configuration
 appsettings.json
 json
 Copy
