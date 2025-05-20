@@ -9,7 +9,7 @@ My final project for the ASP.NET course
 
 ## Tech Stack
 
-- ASP.NET Core 7+
+- ASP.NET Core 8
 - Entity Framework Core (SQL Server)
 - Identity with roles and claims
 - Razor Pages & MVC pattern
